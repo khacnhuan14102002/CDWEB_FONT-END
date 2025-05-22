@@ -1,0 +1,219 @@
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+    font-weight: 500;
+}
+
+.logo {
+    width: 9rem;
+}
+/* Tương đương hidden sm:flex gap-5 text-sm text-gray-700 */
+.nav-links {
+    display: none;
+    gap: 1.25rem; /* tương đương gap-5 (20px) */
+    font-size: 0.875rem; /* text-sm = 14px */
+    color: #4b5563; /* text-gray-700 */
+    list-style: none;
+}
+
+@media (min-width: 640px) {
+    .nav-links {
+        display: flex;
+    }
+}
+
+/* Tương đương flex flex-col items-center gap-1 */
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem; /* gap-1 = 4px */
+    cursor: pointer;
+    text-decoration: none;
+}
+.nav-links .nav-item p {
+    color: black; /* Đặt màu chữ thành đen */
+}
+
+    /* Tương đương hr w-2/4 h-[1.5px] bg-gray-700 border-none */
+.nav-underline {
+    width: 50%;
+    height: 1.5px;
+    background-color: #4b5563;
+    border: none;
+}
+.nav-item hr {
+    display: none;
+}
+
+.nav-item.active hr {
+    display: block;
+}
+.flex {
+    display: flex;
+    align-items: center; /* Căn giữa theo chiều dọc */
+}
+
+.gap-6 {
+    gap: 1.5rem; /* Khoảng cách giữa các phần tử */
+}
+.w-5 {
+    width: 1.25rem; /* Kích thước 20px */
+}
+.icon {
+    width: 1rem; /* Width 5 (1.25rem) */
+    cursor: pointer; /* Con trỏ chuột khi hover */
+}
+.group {
+    position: relative; /* Để dropdown menu hiển thị đúng */
+}
+
+.dropdown-menu {
+    display: none; /* Hidden by default */
+    position: absolute; /* Position relative to the parent */
+    right: 0; /* Align to the right */
+    padding-top: 1rem; /* Space above */
+    z-index: 10; /* Ensure it appears above other elements */
+}
+
+.group:hover .dropdown-menu {
+    display: block; /* Show on hover */
+}
+.collection-parent {
+    position: relative;
+}
+
+.mega-menu {
+    position: absolute;
+    top: 100%;
+    left: -300px;
+    width: 1000px;
+    background: white;
+    display: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    padding: 20px;
+    z-index: 100;
+    color: #1a1a1a;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.mega-menu .mega-column {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.collection-parent:hover .mega-menu {
+    display: grid;
+}
+
+.mega-menu h4 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.mega-menu p {
+    font-size: 14px;
+    margin: 0;
+    cursor: pointer;
+}
+
+.mega-menu p:hover {
+    color: #007bff;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column; /* Sắp xếp theo cột */
+    gap: 0.5rem; /* Khoảng cách giữa các mục */
+    width: 9rem; /* Chiều rộng của menu */
+    padding: 0.75rem 1rem; /* Padding cho menu */
+    background-color: #f1f5f9; /* Màu nền menu */
+    color: #6b7280; /* Màu chữ */
+    border-radius: 0.375rem; /* Bo góc */
+}
+
+.menu-item {
+    cursor: pointer; /* Con trỏ chuột khi hover */
+}
+
+.menu-item:hover {
+    color: black; /* Đổi màu chữ khi hover */
+}
+.relative {
+    position: relative; /* Để định vị các phần tử con */
+}
+.badge {
+    position: absolute; /* Định vị badge */
+    right: -5px; /* Cách bên phải */
+    bottom: -5px; /* Cách đáy */
+    width: 1rem; /* Kích thước tương đương với w-4 */
+    text-align: center; /* Căn giữa chữ */
+    line-height: 1rem; /* Căn giữa theo chiều dọc */
+    background-color: black; /* Màu nền */
+    color: white; /* Màu chữ */
+    aspect-ratio: 1 / 1; /* Tỷ lệ 1:1 để tạo hình tròn */
+    border-radius: 50%; /* Bo góc để tạo hình tròn */
+    font-size: 0.5rem; /* Kích thước chữ tương đương với text-[8px] */
+}
+.menu-c {
+    display: none; /* Ẩn icon mặc định */
+    width: 1.25rem; /* Kích thước tương đương với w-5 */
+    cursor: pointer; /* Con trỏ chuột khi hover */
+}
+
+/* Hiển thị icon trên màn hình nhỏ */
+@media (max-width: 640px) { /* Thay đổi kích thước theo yêu cầu */
+    .menu-c {
+        display: inline; /* Hiển thị icon trên các màn hình nhỏ */
+    }
+}
+.sidebar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden; /* Ẩn nội dung tràn */
+    background-color: white; /* Màu nền */
+    transition: width 0.3s ease; /* Hiệu ứng chuyển đổi */
+    width: 0; /* Bắt đầu với chiều rộng 0 */
+}
+
+.sidebar.active {
+    width: 100%; /* Kích thước đầy đủ khi được kích hoạt */
+}
+
+.sidebar-content {
+    display: flex;
+    flex-direction: column; /* Sắp xếp theo cột */
+    color: #4B5563; /* Màu chữ */
+}
+
+.back-button {
+    display: flex;
+    align-items: center; /* Căn giữa theo chiều dọc */
+    gap: 1rem; /* Khoảng cách giữa icon và chữ */
+    padding: 0.75rem; /* Padding cho nút quay lại */
+    cursor: pointer; /* Con trỏ chuột khi hover */
+}
+
+.icon_d {
+    height: 1rem; /* Kích thước icon */
+    transform: rotate(180deg); /* Xoay icon */
+}
+
+.nav-link {
+    padding: 0.5rem 1.5rem; /* Padding cho liên kết */
+    border-bottom: 1px solid #E5E7EB; /* Đường viền dưới */
+    text-decoration: none; /* Bỏ gạch chân */
+    color: inherit; /* Kế thừa màu chữ */
+}
+
+.nav-link:hover {
+    background-color: #F3F4F6; /* Màu nền khi hover */
+}

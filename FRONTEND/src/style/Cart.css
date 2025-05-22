@@ -1,0 +1,146 @@
+/* Cart.css */
+
+.cart-container {
+    border-top: 1px solid #e2e8f0; /* border-t */
+    padding-top: 3.5rem; /* pt-14 */
+}
+
+.cart-title {
+    font-size: 1.5rem; /* text-2xl */
+    margin-bottom: 0.75rem; /* mb-3 */
+}
+
+.cart-item {
+    padding-top: 1rem; /* py-4 */
+    padding-bottom: 1rem; /* py-4 */
+    border-bottom: 1px solid #e2e8f0; /* border-b */
+    color: #4b5563; /* text-gray-700 */
+    display: grid;
+    grid-template-columns: 4fr 0.5fr 0.5fr; /* grid-cols-[4fr_0.5fr_0.5fr] */
+    align-items: center; /* items-center */
+    gap: 1rem; /* gap-4 */
+}
+
+@media (min-width: 640px) { /* sm */
+    .cart-item {
+        grid-template-columns: 4fr 2fr 0.5fr; /* sm:grid-cols-[4fr_2f_0.5fr] */
+    }
+}
+
+.cart-item-details {
+    display: flex;
+    align-items: flex-start; /* items-start */
+    gap: 1.5rem; /* gap-6 */
+}
+
+.cart-item-image {
+    width: 4rem; /* w-16 */
+}
+
+@media (min-width: 640px) { /* sm */
+    .cart-item-image {
+        width: 5rem; /* sm:w-20 (assuming -20 was a typo for w-20) */
+    }
+}
+
+.cart-item-name {
+    font-size: 0.75rem; /* text-xs */
+    font-weight: 500; /* font-medium */
+}
+
+@media (min-width: 640px) { /* sm */
+    .cart-item-name {
+        font-size: 1.125rem; /* sm:text-lg */
+    }
+}
+
+.cart-item-info {
+    display: flex;
+    align-items: center; /* items-center */
+    gap: 1.25rem; /* gap-5 */
+    margin-top: 0.5rem; /* mt-2 */
+}
+
+.cart-item-size {
+    padding-left: 0.5rem; /* px-2 */
+    padding-right: 0.5rem; /* px-2 */
+    border: 1px solid #e2e8f0; /* border */
+    background-color: #f8fafc; /* bg-slate-50 */
+}
+
+@media (min-width: 640px) { /* sm */
+    .cart-item-size {
+        padding-left: 0.75rem; /* sm:px-3 */
+        padding-right: 0.75rem; /* sm:px-3 */
+        padding-top: 0.25rem; /* sm:py-1 */
+        padding-bottom: 0.25rem; /* sm:py-1 */
+    }
+}
+
+.cart-item-quantity-input {
+    border: 1px solid #e2e8f0; /* border */
+    max-width: 2.5rem; /* max-w-10 */
+    padding-left: 0.25rem; /* px-1 */
+    padding-right: 0.25rem; /* px-1 */
+    padding-top: 0.25rem; /* py-1 */
+    padding-bottom: 0.25rem; /* py-1 */
+}
+
+@media (min-width: 640px) { /* sm */
+    .cart-item-quantity-input {
+        max-width: 5rem; /* sm:max-w-20 */
+        padding-left: 0.5rem; /* sm:px-2 */
+        padding-right: 0.5rem; /* sm:px-2 */
+    }
+}
+
+.cart-item-remove-icon {
+    width: 1rem; /* w-4 */
+    margin-right: 1rem; /* mr-4 */
+    cursor: pointer; /* cursor-pointer */
+}
+
+@media (min-width: 640px) { /* sm */
+    .cart-item-remove-icon {
+        width: 1.25rem; /* sm:w-5 */
+    }
+}
+/* YourComponent.css (or a relevant CSS file) */
+
+.cart-summary-container {
+    display: flex; /* flex */
+    justify-content: flex-end; /* justify-end */
+    margin-top: 5rem; /* my-20 (20 * 0.25rem = 5rem) */
+    margin-bottom: 5rem; /* my-20 */
+}
+
+.cart-total-wrapper {
+    width: 100%; /* w-full */
+}
+
+@media (min-width: 640px) { /* sm breakpoint */
+    .cart-total-wrapper {
+        width: 450px; /* sm:w-[450px] */
+    }
+}
+/* CheckoutButton.css */
+
+.checkout-button-container {
+    width: 100%; /* w-full */
+    text-align: end; /* text-end */
+}
+
+.checkout-button {
+    background-color: #000; /* bg-black */
+    color: #fff; /* text-white */
+    font-size: 0.875rem; /* text-sm (14px) */
+    margin-top: 2rem; /* my-8 (8 * 0.25rem = 2rem) */
+    margin-bottom: 2rem; /* my-8 */
+    padding-left: 2rem; /* px-8 */
+    padding-right: 2rem; /* px-8 */
+    padding-top: 0.75rem; /* py-3 */
+    padding-bogittom: 0.75rem; /* py-3 */
+    border: none; /* Remove default button border */
+    cursor: pointer; /* Indicate it's clickable */
+    /* Add any other desired button styles, e.g., border-radius */
+}

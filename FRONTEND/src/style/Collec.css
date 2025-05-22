@@ -1,0 +1,76 @@
+.collection-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid #D1D5DB;
+}
+
+@media (min-width: 640px) {
+    .collection-container {
+        flex-direction: row;
+        gap: 2.5rem;
+    }
+}
+
+.filter-wrapper {
+    min-width: 15rem;
+}
+
+.filter-header {
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0.5rem 0;
+    cursor: pointer;
+}
+
+.filter-icon {
+    height: 0.75rem;
+    transition: transform 0.3s ease;
+}
+
+.rotate {
+    transform: rotate(90deg);
+}
+
+.filter-box {
+    border: 1px solid #D1D5DB;
+    padding: 0.75rem 0 0.75rem 1.25rem;
+    margin-top: 1.5rem;
+}
+
+.margin-top {
+    margin-top: 1.25rem;
+}
+
+.hidden-mobile {
+    display: none;
+}
+
+@media (min-width: 640px) {
+    .hidden-mobile {
+        display: block;
+    }
+}
+
+.filter-title {
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+}
+
+.filter-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 300;
+    color: #374151;
+}
+
+.filter-options input {
+    margin-right: 0.5rem;
+    width: 0.75rem;
+}

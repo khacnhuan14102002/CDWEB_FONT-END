@@ -1,0 +1,51 @@
+.latest-collection {
+    padding: 2rem; /* Add padding to the collection */
+}
+
+.title-wrapper {
+    text-align: center; /* Center align the title */
+    margin-bottom: 1.5rem; /* Spacing below the title */
+}
+
+.description {
+    width: 75%; /* Equivalent to w-3/4 */
+    margin: 0 auto; /* Center horizontally */
+    font-size: 0.875rem; /* Equivalent to text-xs */
+    color: #4b5563; /* text-gray-600 */
+}
+
+@media (min-width: 640px) {
+    .description {
+        font-size: 1rem; /* Equivalent to sm:text-sm */
+    }
+}
+
+@media (min-width: 768px) {
+    .description {
+        font-size: 1.125rem; /* Equivalent to md:text-base */
+    }
+}
+
+.grid {
+    display: grid; /* Use CSS Grid */
+    grid-template-columns: repeat(2, 1fr); /* Default to 2 columns */
+    gap: 1rem; /* Gap between grid items */
+}
+
+@media (min-width: 640px) {
+    .grid {
+        grid-template-columns: repeat(3, 1fr); /* 3 columns on small screens */
+    }
+}
+
+@media (min-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(4, 1fr); /* 4 columns on medium screens */
+    }
+}
+
+@media (min-width: 1024px) {
+    .grid {
+        grid-template-columns: repeat(5, 1fr); /* 5 columns on large screens */
+    }
+}

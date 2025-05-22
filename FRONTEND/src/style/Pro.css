@@ -1,0 +1,207 @@
+/* src/style/Pro.css */
+
+/* General container for the product page */
+.product-page-container {
+    border-top: 2px solid #e0e0e0; /* Light gray border */
+    padding-top: 40px;
+    transition: opacity ease-in 0.5s;
+    opacity: 1;
+}
+
+/* Flex container for product data (image and info) */
+.product-data-section {
+    display: flex;
+    gap: 48px; /* equivalent to gap-12 in Tailwind (48px = 12 * 4px) */
+    flex-direction: column;
+}
+
+@media (min-width: 640px) { /* sm breakpoint */
+    .product-data-section {
+        flex-direction: row;
+    }
+}
+
+/* Image gallery container */
+.product-image-gallery {
+    display: flex;
+    flex: 1;
+    flex-direction: column-reverse; /* sm:flex-col-reverse */
+    gap: 12px; /* gap-3 */
+}
+
+@media (min-width: 640px) { /* sm breakpoint */
+    .product-image-gallery {
+        flex-direction: row;
+    }
+}
+
+/* Individual image container in gallery */
+.product-thumbnail-list {
+    display: flex;
+    overflow-x: auto;
+    justify-content: space-between;
+    width: 100%;
+}
+
+@media (min-width: 640px) { /* sm breakpoint */
+    .product-thumbnail-list {
+        flex-direction: column;
+        overflow-y: scroll;
+        overflow-x: hidden; /* Prevent horizontal scroll when in column */
+        justify-content: normal;
+        width: 18.7%;
+    }
+}
+
+.product-thumbnail-list img {
+    width: 24%;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+@media (min-width: 640px) { /* sm breakpoint */
+    .product-thumbnail-list img {
+        width: 100%;
+        margin-bottom: 12px; /* sm:mb-3 */
+    }
+}
+
+/* Main product image */
+.product-main-image {
+    width: 100%;
+}
+
+@media (min-width: 640px) { /* sm breakpoint */
+    .product-main-image {
+        width: 80%;
+    }
+}
+
+.product-main-image img {
+    width: 100%;
+    height: auto;
+}
+
+/* Product information section */
+.product-info-section {
+    flex: 1;
+}
+
+.product-info-section h1 {
+    font-weight: 500;
+    font-size: 1.5rem; /* text-2xl */
+    margin-top: 8px; /* mt-2 */
+}
+
+.product-rating {
+    display: flex;
+    align-items: center;
+    gap: 4px; /* gap-1 */
+    margin-top: 8px; /* mt-2 */
+}
+
+.product-rating img {
+    width: 14px; /* w-3.5 */
+}
+
+.product-rating p {
+    padding-left: 8px; /* pl-2 */
+}
+
+.product-price {
+    margin-top: 20px; /* mt-5 */
+    font-size: 1.875rem; /* text-3xl */
+    font-weight: 500;
+}
+
+.product-description {
+    margin-top: 20px; /* mt-5 */
+    color: #6b7280; /* text-gray-500 */
+    width: 100%;
+}
+
+@media (min-width: 768px) { /* md breakpoint */
+    .product-description {
+        width: 80%; /* md:w-4/5 */
+    }
+}
+
+.product-size-selection {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* gap-4 */
+    margin-top: 32px; /* my-8 */
+    margin-bottom: 32px; /* my-8 */
+}
+
+.product-size-buttons {
+    display: flex;
+    gap: 8px; /* gap-2 */
+}
+
+.product-size-buttons button {
+    border: 1px solid #e5e7eb; /* border */
+    padding: 8px 16px; /* py-2 px-4 */
+    background-color: #f3f4f6; /* bg-gray-100 */
+}
+
+.product-size-buttons button.selected {
+    border-color: #f97316; /* border-orange-500 */
+}
+
+.add-to-cart-btn {
+    background-color: black;
+    color: white;
+    padding: 12px 32px; /* px-8 py-3 */
+    font-size: 0.875rem; /* text-sm */
+}
+
+.add-to-cart-btn:active {
+    background-color: #4b5563; /* active:bg-gray-700 */
+}
+
+.product-info-divider {
+    margin-top: 32px; /* mt-8 */
+    width: 100%;
+}
+
+@media (min-width: 640px) { /* sm breakpoint */
+    .product-info-divider {
+        width: 80%; /* sm:w-4/5 */
+    }
+}
+
+.product-guarantee-info {
+    font-size: 0.875rem; /* text-sm */
+    color: #6b7280; /* text-gray-500 */
+    margin-top: 20px; /* mt-5 */
+    display: flex;
+    flex-direction: column;
+    gap: 4px; /* gap-1 */
+}
+
+/* Description and Reviews section */
+.description-reviews-section {
+    margin-top: 80px; /* mt-20 */
+}
+
+.description-reviews-tabs {
+    display: flex;
+}
+
+.description-reviews-tabs b,
+.description-reviews-tabs p {
+    border: 1px solid #e0e0e0;
+    padding: 12px 20px; /* px-5 py-3 */
+    font-size: 0.875rem; /* text-sm */
+}
+
+.description-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* gap-4 */
+    border: 1px solid #e0e0e0;
+    padding: 24px; /* px-6 py-6 */
+    font-size: 0.875rem; /* text-sm */
+    color: #6b7280; /* text-gray-500 */
+}

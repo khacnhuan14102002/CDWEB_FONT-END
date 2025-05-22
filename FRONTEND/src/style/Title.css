@@ -1,0 +1,36 @@
+.title-container {
+    display: flex; /* Changed to flex for centering */
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+    justify-content: center; /* Center items vertically */
+    gap: 0.5rem; /* Equivalent to gap-2 */
+    margin-bottom: 0.5rem; /* Equivalent to mb-3 */
+}
+
+.text {
+    color: #6b7280; /* gray-500 */
+    font-size: 2.25rem; /* Increase font size */
+    margin-bottom: 0.1rem;
+    margin-top: 0.1rem; /* hoặc số nào bạn thích để giảm khoảng cách */
+
+}
+
+
+.highlight {
+    color: #374151; /* gray-700 */
+    font-weight: 500; /* medium */
+}
+
+.line {
+    width: 3rem; /* tăng từ 2rem lên 3rem */
+    height: 3px;
+    background-color: #374151;
+}
+
+@media (min-width: 640px) {
+    .line {
+        width: 4rem; /* tăng từ 3rem lên 4rem */
+        height: 2px;
+    }
+
+}

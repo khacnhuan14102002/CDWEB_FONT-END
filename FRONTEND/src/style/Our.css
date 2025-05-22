@@ -1,0 +1,41 @@
+.our-policy {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 3rem;
+    padding: 5rem 0;
+    text-align: center;
+    font-size: 12px;
+    color: #4B5563; /* Tailwind's gray-700 */
+}
+
+@media (min-width: 640px) {
+    .our-policy {
+        flex-direction: row;
+        gap: 0.5rem;
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 768px) {
+    .our-policy {
+        font-size: 16px;
+    }
+}
+
+.policy-item {
+    flex: 1;
+}
+
+.policy-icon {
+    width: 48px;
+    margin: 0 auto 1.25rem auto;
+}
+
+.policy-title {
+    font-weight: 600;
+}
+
+.policy-description {
+    color: #9CA3AF; /* Tailwind's gray-400 */
+}

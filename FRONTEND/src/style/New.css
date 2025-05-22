@@ -1,0 +1,54 @@
+.newsletter-container {
+    text-align: center;
+    padding: 2rem;
+    margin-top: 1rem;
+}
+
+.newsletter-title {
+    font-size: 1.5rem; /* Tailwind's text-2xl */
+    font-weight: 500;
+    color: #1F2937; /* Tailwind's gray-800 */
+}
+
+.newsletter-subtitle {
+    color: #9CA3AF; /* Tailwind's gray-400 */
+    margin-top: 0.75rem;
+    font-size: 1rem;
+}
+
+.newsletter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    border: 1px solid #D1D5DB; /* Light border */
+    padding-left: 0.75rem;
+    width: 100%;
+    max-width: 600px;
+    margin: 1.5rem auto;
+    align-items: center;
+}
+
+@media (min-width: 640px) {
+    .newsletter-form {
+        flex-direction: row;
+    }
+}
+
+.newsletter-input {
+    flex: 1;
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: none;
+    outline: none;
+}
+
+.newsletter-button {
+    background-color: #000000;
+    color: white;
+    font-size: 0.75rem;
+    padding: 1rem 2.5rem;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+}
