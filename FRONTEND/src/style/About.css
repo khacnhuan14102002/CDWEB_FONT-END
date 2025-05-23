@@ -1,0 +1,94 @@
+/* About.css */
+
+.about-title-section {
+    font-size: 1.5rem; /* text-2x1 (assuming text-2xl, as 2x1 is not a valid Tailwind class) */
+    text-align: center; /* text-center */
+    padding-top: 2rem; /* pt-8 (8 * 0.25rem = 2rem) */
+    border-top: 1px solid #e5e7eb; /* border-t */
+}
+
+.about-content-section {
+    margin-top: 2.5rem; /* my-10 (10 * 0.25rem = 2.5rem) */
+    margin-bottom: 2.5rem; /* my-10 */
+    display: flex;
+    flex-direction: column; /* flex-col */
+    gap: 4rem; /* gap-16 (16 * 0.25rem = 4rem) */
+}
+
+@media (min-width: 768px) { /* md breakpoint */
+    .about-content-section {
+        flex-direction: row; /* md:flex-row */
+    }
+}
+
+.about-image {
+    width: 100%; /* w-full */
+}
+
+@media (min-width: 768px) { /* md breakpoint */
+    .about-image {
+        max-width: 450px; /* md:max-w-[450px] */
+    }
+}
+
+.about-text-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* justify-center */
+    gap: 1.5rem; /* gap-6 */
+    color: #4b5563; /* text-gray-600 */
+}
+
+@media (min-width: 768px) { /* md breakpoint */
+    .about-text-content {
+        width: 50%; /* md:w-2/4 */
+    }
+}
+
+.why-choose-us-title {
+    font-size: 1.25rem; /* text-xl */
+    padding-top: 1rem; /* py-4 */
+    padding-bottom: 1rem; /* py-4 */
+}
+
+.why-choose-us-items {
+    display: flex;
+    flex-direction: column; /* flex-col */
+    font-size: 0.875rem; /* text-sm */
+    margin-bottom: 5rem; /* mb-20 */
+}
+
+@media (min-width: 768px) { /* md breakpoint */
+    .why-choose-us-items {
+        flex-direction: row; /* md:flex-row */
+    }
+}
+
+.why-choose-us-item {
+    border: 1px solid #e5e7eb; /* border */
+    padding-left: 2.5rem; /* px-10 */
+    padding-right: 2.5rem; /* px-10 */
+    padding-top: 2rem; /* py-8 */
+    padding-bottom: 2rem; /* py-8 */
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem; /* gap-5 */
+}
+
+@media (min-width: 768px) { /* md breakpoint */
+    .why-choose-us-item {
+        padding-left: 4rem; /* md:px-16 */
+        padding-right: 4rem; /* md:px-16 */
+    }
+}
+
+@media (min-width: 640px) { /* sm breakpoint */
+    .why-choose-us-item {
+        padding-top: 5rem; /* sm:py-20 */
+        padding-bottom: 5rem; /* sm:py-20 */
+    }
+}
+
+.why-choose-us-text {
+    color: #4b5563; /* text-gray-600 */
+}

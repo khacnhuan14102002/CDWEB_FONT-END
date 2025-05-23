@@ -1,0 +1,124 @@
+/* Orders.css */
+
+.orders-container {
+    border-top: 1px solid #e5e7eb; /* border-t */
+    padding-top: 4rem; /* pt-16 (16 * 0.25rem = 4rem) */
+}
+
+.orders-title-wrapper {
+    font-size: 1.5rem; /* text-2xl (approximate for 2x1 as 2x1 is not a valid tailwind class) */
+    /* text-2x1 is not a valid Tailwind class. Assuming it was meant to be text-2xl or a typo.
+       I've used text-2xl equivalent. Adjust if your '2x1' was custom. */
+}
+
+.order-item {
+    padding-top: 1rem; /* py-4 */
+    padding-bottom: 1rem; /* py-4 */
+    border-top: 1px solid #e5e7eb; /* border-t */
+    border-bottom: 1px solid #e5e7eb; /* border-b */
+    color: #4b5563; /* text-gray-700 */
+    display: flex;
+    flex-direction: column; /* flex-col */
+    gap: 1rem; /* gap-4 */
+}
+
+@media (min-width: 768px) { /* md breakpoint */
+    .order-item {
+        flex-direction: row; /* md:flex-row */
+        align-items: center; /* md:items-center */
+        justify-content: space-between; /* md:justify-between */
+    }
+}
+
+.order-details {
+    display: flex;
+    align-items: flex-start; /* items-start */
+    gap: 1.5rem; /* gap-6 */
+    font-size: 0.875rem; /* text-sm */
+}
+
+.order-image {
+    width: 4rem; /* w-16 */
+}
+
+@media (min-width: 640px) { /* sm breakpoint */
+    .order-image {
+        width: 5rem; /* sm:w-20 */
+    }
+}
+
+.order-name {
+    font-weight: 500; /* font-medium */
+}
+
+@media (min-width: 640px) { /* sm breakpoint */
+    .order-name {
+        font-size: 1rem; /* sm:text-base */
+    }
+}
+
+.order-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem; /* gap-3 */
+    margin-top: 0.5rem; /* mt-2 */
+    font-size: 1rem; /* text-base */
+    color: #4b5563; /* text-gray-700 */
+}
+
+.order-price {
+    font-size: 1.125rem; /* text-lg */
+}
+
+.order-date {
+    margin-top: 0.5rem; /* mt-2 */
+}
+
+.order-date-value {
+    color: #9ca3af; /* text-gray-400 */
+}
+
+.order-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+@media (min-width: 768px) { /* md breakpoint */
+    .order-actions {
+        width: 50%; /* md:w-1/2 */
+    }
+}
+
+.order-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* gap-2 */
+}
+
+.status-indicator {
+    min-width: 0.5rem; /* min-w-2 */
+    height: 0.5rem; /* h-2 */
+    border-radius: 9999px; /* rounded-full */
+    background-color: #22c55e; /* bg-green-500 */
+}
+
+.status-text {
+    font-size: 0.875rem; /* text-sm */
+}
+
+@media (min-width: 768px) { /* md breakpoint */
+    .status-text {
+        font-size: 1rem; /* md:text-base */
+    }
+}
+
+.track-order-button {
+    border: 1px solid #e5e7eb; /* border */
+    padding-left: 1rem; /* px-4 */
+    padding-right: 1rem; /* px-4 */
+    padding-top: 0.5rem; /* py-2 */
+    padding-bottom: 0.5rem; /* py-2 */
+    font-size: 0.875rem; /* text-sm */
+    font-weight: 500; /* font-medium */
+    border-radius: 0.125rem; /* rounded-sm */
+}

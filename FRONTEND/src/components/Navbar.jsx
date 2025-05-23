@@ -70,7 +70,7 @@ const Navbar = () =>  {
             <div className="flex items-center gap-6">
                 <img onClick={()=>setShowSearch(true)} src={assets.search_icon}  className="icon" alt="Search Icon"/>
                 <div className="group relative">
-                    <img className="icon" src={assets.profile_icon} alt="Profile Icon"/>
+                    <Link to='/login' ><img className="icon" src={assets.profile_icon} alt="Profile Icon"/></Link>
                     <div className="dropdown-menu">
                         <div className="menu">
                             <p className="menu-item">My Profile</p>

@@ -1,0 +1,52 @@
+/* Contact.css */
+
+.contact-title-section {
+    text-align: center; /* text-center */
+    font-size: 1.5rem; /* text-2x1 (assuming text-2xl, as 2x1 is not a standard Tailwind class) */
+    padding-top: 2.5rem; /* pt-10 (10 * 0.25rem = 2.5rem) */
+    border-top: 1px solid #e5e7eb; /* border-t */
+}
+
+.contact-content-section {
+    margin-top: 2.5rem; /* my-10 (10 * 0.25rem = 2.5rem) */
+    margin-bottom: 7rem; /* mb-28 (28 * 0.25rem = 7rem) */
+    display: flex;
+    flex-direction: column; /* flex-col */
+    justify-content: center; /* justify-center */
+    gap: 2.5rem; /* gap-10 (10 * 0.25rem = 2.5rem) */
+}
+
+@media (min-width: 768px) { /* md breakpoint */
+    .contact-content-section {
+        flex-direction: row; /* md:flex-row */
+    }
+}
+
+.contact-image {
+    width: 100%; /* w-full */
+}
+
+@media (min-width: 768px) { /* md breakpoint */
+    .contact-image {
+        max-width: 480px; /* md:max-w-[480px] */
+    }
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* justify-center */
+    align-items: flex-start; /* items-start */
+    gap: 1.5rem; /* gap-6 */
+}
+
+.store-heading {
+    font-weight: 600; /* font-semibold */
+    font-size: 1.25rem; /* text-xl (corrected from text-x1, assuming typo) */
+    color: #4b5563; /* text-gray-600 */
+}
+
+.store-address,
+.store-contact {
+    color: #6b7280; /* text-gray-500 */
+}
