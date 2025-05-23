@@ -4,7 +4,7 @@ import "../style/navbar.css";
 import logo from '../assets/anh/logo_1.png'
 import {Link, NavLink} from "react-router-dom";
 import {ShopContext} from "../context/ShopContext.jsx";
-
+import mana from '../assets/management.png'
 const Navbar = () =>  {
     const [visible, setVisible] = useState(false);
     const {setShowSearch, getCartCount} = useContext(ShopContext)
@@ -83,6 +83,11 @@ const Navbar = () =>  {
                     <img src={assets.cart_icon} className='w-5 min-w-5' alt=""/>
                     <p className='badge'>{getCartCount()}</p>
                 </Link>
+                <Link to='/admin' className='relative'>
+                    <img src={mana} className='w-5 min-w-5' alt=""/>
+
+                </Link>
+
                 <img onClick={()=>setVisible(true)} src={assets.menu_icon} className='menu-c'/>
             </div>
             {/*silde bar*/}

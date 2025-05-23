@@ -1,7 +1,7 @@
-import React from 'react'
-import './index.css'
-import {Routes,Route} from "react-router-dom";
-import Home from './pages/Home'
+import React from 'react';
+import './index.css';
+import { Routes, Route } from "react-router-dom";
+import Home from './pages/Home';
 import Collection from "./pages/Collection.jsx";
 import About from "./pages/About.jsx";
 import Contact from "./pages/Contact.jsx";
@@ -13,32 +13,43 @@ import Navbar from "./components/Navbar.jsx";
 import Orders from "./pages/Orders.jsx";
 import Footer from "./components/Footer.jsx";
 import SearchBar from "./components/SearchBar.jsx";
-import { ToastContainer, toast } from 'react-toastify';
+import Admin from "./pages/Admin.jsx";
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-function App() {
-  return (
-
-      <div className='app-container'>
-          <ToastContainer/>
-          <Navbar/>
-          <SearchBar/>
-
-
-        <Routes>
-            <Route path='/' element={<Home/>} />
-            <Route path='/collection' element={<Collection/>} />
-            <Route path='/about' element={<About/>} />
-            <Route path='/contact' element={<Contact/>} />
-            <Route path='/product/:productId' element={<Product/>} />
-            <Route path='/cart' element={<Cart/>} />
-            <Route path='/login' element={<Login/>} />
-            <Route path='/place-order' element={<PlaceOrder/>} />
-            <Route path='/orders' element={<Orders/>} />
-        </Routes>
-          <Footer/>
-      </div>
-  )
+function AppLayout({ children }) {
+    return (
+        <>
+            <Navbar />
+            <SearchBar />
+            {children}
+            <Footer />
+        </>
+    );
 }
 
-export default App
+function App() {
+    return (
+        <div className='app-container'>
+            <ToastContainer />
+
+            <Routes>
+                {/* Các route có bố cục chung */}
+                <Route path='/' element={<AppLayout><Home /></AppLayout>} />
+                <Route path='/collection' element={<AppLayout><Collection /></AppLayout>} />
+                <Route path='/about' element={<AppLayout><About /></AppLayout>} />
+                <Route path='/contact' element={<AppLayout><Contact /></AppLayout>} />
+                <Route path='/product/:productId' element={<AppLayout><Product /></AppLayout>} />
+                <Route path='/cart' element={<AppLayout><Cart /></AppLayout>} />
+                <Route path='/login' element={<AppLayout><Login /></AppLayout>} />
+                <Route path='/place-order' element={<AppLayout><PlaceOrder /></AppLayout>} />
+                <Route path='/orders' element={<AppLayout><Orders /></AppLayout>} />
+
+                {/* Route riêng cho Admin */}
+                <Route path='/admin' element={<Admin />} />
+            </Routes>
+        </div>
+    );
+}
+
+export default App;
