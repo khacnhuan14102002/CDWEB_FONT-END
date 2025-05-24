@@ -1,79 +1,75 @@
-import React, {useContext, useEffect, useState} from 'react'
-import {useParams} from "react-router-dom";
-import {ShopContext} from "../context/ShopContext.jsx";
-import {assets} from "../assets/assets.js";
+import React, { useContext, useEffect, useState } from 'react';
+import { useParams } from "react-router-dom";
+import { ShopContext } from "../context/ShopContext.jsx";
+import { assets } from "../assets/assets.js";
 import RelatedProduct from "../components/RelatedProduct.jsx";
-import "../style/Pro.css" // Corrected path and removed trailing slash
+import "../style/Pro.css";
 
-const Product = () =>  {
-    const {productId} = useParams();
-    const {products, currency, addToCart} = useContext(ShopContext);
-    const [productData, setProductData] = useState(false);
+const Product = () => {
+    const { productId } = useParams();
+    const { currency, addToCart } = useContext(ShopContext);
+    const [productData, setProductData] = useState(null); // Initialize as null
     const [image, setImage] = useState('');
-    const [size,setSize] = useState('');
+    const [size, setSize] = useState('');
 
-    const  fetchProductData = async () =>{
-        products.map((item) =>{
-            if(item._id === productId){
-                setProductData(item);
-                setImage(item.image[0]);
-                console.log(item);
-                return null;
+    const fetchProductData = async () => {
+        try {
+            const response = await fetch(`http://localhost:8080/api/sanpham/${productId}`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
             }
-            return null;
-        });
+            const data = await response.json();
+            setProductData(data);
+
+            setImage(data.hinhAnh); // Set to the single image string
+        } catch (error) {
+            console.error("Error fetching product data:", error);
+        }
     };
 
     useEffect(() => {
         fetchProductData();
-    }, [productId, products]); // Added products to dependency array
+    }, [productId]);
+    console.log("Image URL:", image);
+    // Check if productData is defined and has the necessary properties
+    if (!productData) {
+        return <div>Loading...</div>; // Loading state
+    }
 
-    return  productData ?(
+    return (
         <div className='product-page-container'>
-            {/*data*/}
             <div className='product-data-section'>
-                {/*image*/}
                 <div className='product-image-gallery'>
-                    <div className='product-thumbnail-list'>
-                        {
-                            productData.image.map((item,index)=>(
-                                <img onClick={() => setImage(item)} src={item} key={index} alt={`Product thumbnail ${index + 1}`}/>
-                            ))
-                        }
-                    </div>
                     <div className='product-main-image'>
-                        <img src={image} alt={productData.name}/>
+                        <img src={image} alt={productData.tenSP} />
                     </div>
                 </div>
-                {/* Info*/}
                 <div className='product-info-section'>
-                    <h1 >{productData.name}</h1>
+                    <h1>{productData.tenSP}</h1>
                     <div className='product-rating'>
-                        <img src={assets.star_icon} alt="Star rating"/>
-                        <img src={assets.star_icon} alt="Star rating"/>
-                        <img src={assets.star_icon} alt="Star rating"/>
-                        <img src={assets.star_icon} alt="Star rating"/>
-                        <img src={assets.star_icon} alt="Star rating"/>
+                        {[...Array(5)].map((_, index) => (
+                            <img src={assets.star_icon} alt="Star rating" key={index} />
+                        ))}
                         <p>(122)</p>
                     </div>
-                    <p className='product-price'>{currency}{productData.price}</p>
-                    <p className='product-description'>{productData.description}</p>
+                    <p className='product-price'>{currency}{productData.gia}</p>
+                    <p className='product-description'>{productData.moTa}</p>
                     <div className='product-size-selection'>
                         <p>Select Size</p>
                         <div className='product-size-buttons'>
-                            {productData.sizes.map((item,index)=>
+                            {Array.isArray(productData.sizes) && productData.sizes.map((item, index) => (
                                 <button
-                                    onClick={()=>setSize(item)}
+                                    onClick={() => setSize(item)}
                                     className={item === size ? 'selected' : ''}
                                     key={index}
                                 >
                                     {item}
                                 </button>
-                            )}
+                            ))}
                         </div>
                     </div>
-                    <button  onClick={() => addToCart(productData._id,size)} className='add-to-cart-btn'>ADD TO CART</button>
-                    <hr className='product-info-divider'/>
+                    <button onClick={() => addToCart(productData.maSP, size)} className='add-to-cart-btn'>ADD TO CART</button>
+                    <hr className='product-info-divider' />
                     <div className='product-guarantee-info'>
                         <p>100% Original product</p>
                         <p>Cash on delivery is available on this product</p>
@@ -81,26 +77,18 @@ const Product = () =>  {
                     </div>
                 </div>
             </div>
-            {/* de and re */}
             <div className='description-reviews-section'>
                 <div className='description-reviews-tabs'>
-                    <b>
-                        Description
-                    </b>
-                    <p>
-                        Reviews(22)
-                    </p>
+                    <b>Description</b>
+                    <p>Reviews(22)</p>
                 </div>
                 <div className='description-content'>
-                    <p>dsadassssss</p>
-                    <p>ƯDaxasxas</p>
+                    <p>{productData.moTa}</p>
                 </div>
             </div>
-            {/* RELATED PRO*/}
-            <RelatedProduct category={productData.category} subCategory={productData.subCategory}/>
+            <RelatedProduct category={productData.category} subCategory={productData.subCategory} />
         </div>
-    ) : <div className='opacity-0'>
-    </div>
+    );
 }
 
-export default Product
+export default Product;

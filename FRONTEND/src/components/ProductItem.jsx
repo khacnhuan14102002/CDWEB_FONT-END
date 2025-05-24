@@ -8,7 +8,8 @@ const ProductItem = ({ id, image, name, price }) => {
     return (
         <Link className='product-link' to={`/product/${id}`}>
             <div className='image-container'>
-                <img className='product-image' src={image[0]} alt="" />
+                <img className='product-image' src={image} alt="" />
+
             </div>
             <p className='product-name'>{name}</p>
             <p className='product-price'>{currency}{price}</p>
