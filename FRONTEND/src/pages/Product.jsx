@@ -8,9 +8,10 @@ import "../style/Pro.css";
 const Product = () => {
     const { productId } = useParams();
     const { currency, addToCart } = useContext(ShopContext);
-    const [productData, setProductData] = useState(null); // Initialize as null
+    const [productData, setProductData] = useState(null);
     const [image, setImage] = useState('');
     const [size, setSize] = useState('');
+    const [price, setPrice] = useState(0);
 
     const fetchProductData = async () => {
         try {
@@ -20,8 +21,16 @@ const Product = () => {
             }
             const data = await response.json();
             setProductData(data);
+            setImage(data.hinhAnh);
 
-            setImage(data.hinhAnh); // Set to the single image string
+            // Find the size with the lowest price
+            const minPriceDetail = data.chiTietList.reduce((prev, current) => {
+                return (prev.gia < current.gia) ? prev : current;
+            });
+
+            setSize(minPriceDetail.kichCo); // Set the default size
+            setPrice(minPriceDetail.gia); // Set the default price
+
         } catch (error) {
             console.error("Error fetching product data:", error);
         }
@@ -30,10 +39,18 @@ const Product = () => {
     useEffect(() => {
         fetchProductData();
     }, [productId]);
-    console.log("Image URL:", image);
-    // Check if productData is defined and has the necessary properties
+
+    // Update price based on selected size
+    const handleSizeSelection = (selectedSize) => {
+        setSize(selectedSize);
+        const selectedDetail = productData.chiTietList.find(item => item.kichCo === selectedSize);
+        if (selectedDetail) {
+            setPrice(selectedDetail.gia); // Update price based on selected size
+        }
+    };
+
     if (!productData) {
-        return <div>Loading...</div>; // Loading state
+        return <div>Loading...</div>;
     }
 
     return (
@@ -52,18 +69,17 @@ const Product = () => {
                         ))}
                         <p>(122)</p>
                     </div>
-                    <p className='product-price'>{currency}{productData.gia}</p>
-                    <p className='product-description'>{productData.moTa}</p>
+                    <p className='product-price'>{currency}{price}</p> {/* Display updated price */}
                     <div className='product-size-selection'>
                         <p>Select Size</p>
                         <div className='product-size-buttons'>
-                            {Array.isArray(productData.sizes) && productData.sizes.map((item, index) => (
+                            {productData.chiTietList && productData.chiTietList.map((item, index) => (
                                 <button
-                                    onClick={() => setSize(item)}
-                                    className={item === size ? 'selected' : ''}
+                                    onClick={() => handleSizeSelection(item.kichCo)}
+                                    className={item.kichCo === size ? 'selected' : ''}
                                     key={index}
                                 >
-                                    {item}
+                                    {item.kichCo} ({item.soLuong} available)
                                 </button>
                             ))}
                         </div>

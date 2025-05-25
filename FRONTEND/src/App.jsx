@@ -37,6 +37,7 @@ function App() {
                 {/* Các route có bố cục chung */}
                 <Route path='/' element={<AppLayout><Home /></AppLayout>} />
                 <Route path='/collection' element={<AppLayout><Collection /></AppLayout>} />
+                <Route path="/collection/:categoryId" element={<Collection />} />
                 <Route path='/about' element={<AppLayout><About /></AppLayout>} />
                 <Route path='/contact' element={<AppLayout><Contact /></AppLayout>} />
                 <Route path='/product/:productId' element={<AppLayout><Product /></AppLayout>} />
