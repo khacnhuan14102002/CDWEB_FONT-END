@@ -180,3 +180,28 @@
 .place-order-button:hover {
     background-color: #333; /* Darken on hover */
 }
+.autocomplete-wrapper {
+    position: relative;
+}
+
+.suggestion-list {
+    position: absolute;
+    background: white;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    z-index: 10;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.suggestion-list li {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.suggestion-list li:hover {
+    background-color: #f0f0f0;
+}

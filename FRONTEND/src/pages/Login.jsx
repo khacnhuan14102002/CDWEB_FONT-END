@@ -1,72 +1,115 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // ✅ import useNavigate
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../style/Login.css';
 
 const Login = () => {
     const [currentState, setCurrentState] = useState('Login');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [phone, setPhone] = useState('');
     const [name, setName] = useState('');
-    const navigate = useNavigate(); // ✅ khởi tạo useNavigate
+    const [errors, setErrors] = useState({});
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        setEmail('');
+        setPassword('');
+        setConfirmPassword('');
+        setName('');
+        setPhone('');
+        setErrors({});
+    }, [currentState]);
+    const handleConfirmPasswordBlur = () => {
+        if (currentState === 'Sign Up') {
+            if (!confirmPassword) {
+                setErrors((prev) => ({ ...prev, confirmPassword: "Xác nhận mật khẩu không được bỏ trống" }));
+            } else if (password !== confirmPassword) {
+                setErrors((prev) => ({ ...prev, confirmPassword: "Mật khẩu không khớp" }));
+            } else {
+                setErrors((prev) => ({ ...prev, confirmPassword: '' }));
+            }
+        }
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const newErrors = {};
 
-        if (currentState === 'Login') {
-            try {
+        // Validate
+        if (!email) newErrors.email = "Email không được bỏ trống";
+        if (!password) newErrors.password = "Mật khẩu không được bỏ trống";
+        if (currentState === 'Sign Up') {
+            if (!name) newErrors.name = "Họ tên không được bỏ trống";
+            if (!phone) newErrors.phone = "Số điện thoại không được bỏ trống";
+            if (!confirmPassword) newErrors.confirmPassword = "Xác nhận mật khẩu không được bỏ trống";
+        }
+
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            return;
+        }
+
+        try {
+            if (currentState === 'Login') {
                 const response = await fetch("http://localhost:8080/api/khachhang/login", {
                     method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        email: email,
-                        matKhau: password
-                    })
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email, matKhau: password })
                 });
 
                 if (response.ok) {
                     const user = await response.json();
-                    localStorage.setItem("user", JSON.stringify(user)); // ✅ lưu vào localStorage
+                    localStorage.setItem("user", JSON.stringify(user));
                     navigate("/");
                     window.location.reload();
-                    // ✅ chuyển trang sau khi đăng nhập thành công
                 } else {
                     const msg = await response.text();
-                    setError(msg);
+                    setErrors({ password: msg });
                 }
-            } catch (err) {
-                console.error("Login error:", err);
-                setError("Đã xảy ra lỗi máy chủ.");
+            } else {
+                const response = await fetch("http://localhost:8080/api/khachhang/register", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        email,
+                        matKhau: password,
+                        soDienThoai: phone,
+                        hoTen: name
+                    })
+                });
+
+                const msg = await response.text();
+                if (response.ok) {
+                    alert(msg);
+                    setCurrentState('Login');
+                } else {
+                    setErrors({ email: msg });
+                }
             }
-        } else if (currentState === 'Sign Up') {
-            // TODO: Thêm logic đăng ký khi bạn cần
-            // Ví dụ gửi name, email, phone, password lên backend đăng ký tài khoản
+        } catch (err) {
+            console.error("Lỗi:", err);
+            setErrors({ general: "Đã xảy ra lỗi máy chủ." });
         }
     };
 
     const handleEmailBlur = async () => {
-        if (email) {  // Bất kể Login hay Sign Up đều check email
+        if (email && currentState === 'Sign Up') {
             try {
                 const response = await fetch("http://localhost:8080/api/khachhang/check-email", {
                     method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
+                    headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ email })
                 });
 
                 if (!response.ok) {
                     const msg = await response.text();
-                    setError(msg);
+                    setErrors((prev) => ({ ...prev, email: msg }));
                 } else {
-                    setError(''); // Clear lỗi nếu email hợp lệ
+                    setErrors((prev) => ({ ...prev, email: '' }));
                 }
             } catch (err) {
-                console.error("Email check error:", err);
-                setError("Đã xảy ra lỗi máy chủ.");
+                setErrors((prev) => ({ ...prev, email: "Lỗi kiểm tra email." }));
             }
         }
     };
@@ -78,16 +121,18 @@ const Login = () => {
                 <hr className='form-title-divider' />
             </div>
 
-            {/* Chỉ hiện input Name khi Sign Up */}
             {currentState === 'Sign Up' && (
-                <input
-                    type="text"
-                    className='form-input'
-                    placeholder='Name'
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                />
+                <>
+                    <input
+                        type="text"
+                        className='form-input'
+                        placeholder='Name'
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        required
+                    />
+                    {errors.name && <p className='error-text'>{errors.name}</p>}
+                </>
             )}
 
             <input
@@ -96,20 +141,23 @@ const Login = () => {
                 placeholder='Email'
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                onBlur={handleEmailBlur} // luôn kiểm tra email khi rời input
+                onBlur={handleEmailBlur}
                 required
             />
+            {errors.email && <p className='error-text'>{errors.email}</p>}
 
-            {/* Chỉ hiện input Phone khi Sign Up */}
             {currentState === 'Sign Up' && (
-                <input
-                    type="tel"
-                    className='form-input'
-                    placeholder='Phone'
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    required
-                />
+                <>
+                    <input
+                        type="tel"
+                        className='form-input'
+                        placeholder='Phone'
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        required
+                    />
+                    {errors.phone && <p className='error-text'>{errors.phone}</p>}
+                </>
             )}
 
             <input
@@ -120,21 +168,32 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
             />
+            {errors.password && <p className='error-text'>{errors.password}</p>}
 
-            {error && <p style={{ color: 'red', marginTop: '10px' }}>{error}</p>}
+            {currentState === 'Sign Up' && (
+                <>
+                    <input
+                        type="password"
+                        className='form-input'
+                        placeholder='Confirm Password'
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        onBlur={handleConfirmPasswordBlur}
+                        required
+                    />
+                    {errors.confirmPassword && <p className='error-text'>{errors.confirmPassword}</p>}
+                </>
+            )}
+
+
+            {errors.general && <p className='error-text'>{errors.general}</p>}
 
             <div className='form-links'>
                 <p className='forgot-password-link'>Forgot your password?</p>
                 {
                     currentState === 'Login'
-                        ? <p onClick={() => {
-                            setCurrentState('Sign Up');
-                            setError('');  // reset lỗi khi chuyển trạng thái
-                        }} className='create-account-link'>Create Account</p>
-                        : <p onClick={() => {
-                            setCurrentState('Login');
-                            setError('');  // reset lỗi khi chuyển trạng thái
-                        }} className='login-here-link'>Login Here</p>
+                        ? <p onClick={() => { setCurrentState('Sign Up'); setErrors({}); }} className='create-account-link'>Create Account</p>
+                        : <p onClick={() => { setCurrentState('Login'); setErrors({}); }} className='login-here-link'>Login Here</p>
                 }
             </div>
 

@@ -1,38 +1,36 @@
-import React, {useContext} from 'react'
-import {ShopContext} from "../context/ShopContext.jsx";
+import React from 'react';
 import Title from "./Title.jsx";
-import '../style/CartTotal.css'; // Import the CSS file
+import '../style/CartTotal.css';
 
-const CartTotal = () => {
-    const {currency,delivery_fee, getCartAmount} = useContext(ShopContext);
+const CartTotal = ({ cartData, currency = "$", delivery_fee = 2 }) => {
+    const subtotal = cartData.reduce(
+        (sum, item) => sum + item.gia * item.soLuong, 0
+    );
+    const total = cartData.length === 0 ? 0 : subtotal + delivery_fee;
 
     return (
         <div className='cart-total-container'>
             <div className='cart-total-title'>
-                <Title text1={'CART'} text2={' TOTAL'}/>
+                <Title text1={'CART'} text2={' TOTAL'} />
             </div>
             <div className='cart-total-details'>
                 <div className='cart-total-row'>
                     <p>Subtotal</p>
-                    <p>{currency} {getCartAmount()}.00</p>
+                    <p>{currency}{subtotal.toFixed(2)}</p>
                 </div>
-                {/* The line below this is implied by the divider in the image,
-                but in your code, an hr is used, so let's adjust it */}
-                <hr className='cart-total-divider-subtotal'/> {/* NEW: Add a specific divider */}
+                <hr className='cart-total-divider-subtotal' />
                 <div className='cart-total-row'>
                     <p>Shipping Fee</p>
-                    <p>{currency}{delivery_fee}.00</p>
+                    <p>{currency}{delivery_fee.toFixed(2)}</p>
                 </div>
-                <hr className='cart-total-divider-shipping'/> {/* NEW: Add a specific divider */}
-
-                <div className='cart-total-row cart-total-row-total'> {/* NEW CLASS HERE */}
+                <hr className='cart-total-divider-shipping' />
+                <div className='cart-total-row cart-total-row-total'>
                     <p>Total</p>
-                    <p>{currency}{getCartAmount() === 0 ? 0 : getCartAmount() + delivery_fee}.00</p>
+                    <p>{currency}{total.toFixed(2)}</p>
                 </div>
-
             </div>
         </div>
     );
-}
+};
 
-export default CartTotal
+export default CartTotal;

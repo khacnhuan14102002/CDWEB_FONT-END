@@ -10,6 +10,12 @@
     gap: 1rem; /* gap-4 */
     color: #374151; /* text-gray-800 */
 }
+.error-text {
+    color: red;
+    font-size: 0.85rem;
+    margin-top: 4px;
+    margin-bottom: 8px;
+}
 
 .form-header {
     display: inline-flex;

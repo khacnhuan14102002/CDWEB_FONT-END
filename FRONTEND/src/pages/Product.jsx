@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext.jsx";
 import { assets } from "../assets/assets.js";
 import RelatedProduct from "../components/RelatedProduct.jsx";
@@ -7,30 +7,25 @@ import "../style/Pro.css";
 
 const Product = () => {
     const { productId } = useParams();
-    const { currency, addToCart } = useContext(ShopContext);
+    const { currency } = useContext(ShopContext);
     const [productData, setProductData] = useState(null);
     const [image, setImage] = useState('');
     const [size, setSize] = useState('');
     const [price, setPrice] = useState(0);
+    const navigate = useNavigate();
 
     const fetchProductData = async () => {
         try {
             const response = await fetch(`http://localhost:8080/api/sanpham/${productId}`);
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
+            if (!response.ok) throw new Error('Network response was not ok');
             const data = await response.json();
             setProductData(data);
             setImage(data.hinhAnh);
 
-            // Find the size with the lowest price
-            const minPriceDetail = data.chiTietList.reduce((prev, current) => {
-                return (prev.gia < current.gia) ? prev : current;
-            });
-
-            setSize(minPriceDetail.kichCo); // Set the default size
-            setPrice(minPriceDetail.gia); // Set the default price
-
+            // Chọn kích cỡ có giá thấp nhất mặc định
+            const minPriceDetail = data.chiTietList.reduce((prev, current) => (prev.gia < current.gia) ? prev : current);
+            setSize(minPriceDetail.kichCo);
+            setPrice(minPriceDetail.gia);
         } catch (error) {
             console.error("Error fetching product data:", error);
         }
@@ -40,18 +35,52 @@ const Product = () => {
         fetchProductData();
     }, [productId]);
 
-    // Update price based on selected size
+    // Cập nhật giá khi chọn size
     const handleSizeSelection = (selectedSize) => {
         setSize(selectedSize);
         const selectedDetail = productData.chiTietList.find(item => item.kichCo === selectedSize);
         if (selectedDetail) {
-            setPrice(selectedDetail.gia); // Update price based on selected size
+            setPrice(selectedDetail.gia);
         }
     };
 
-    if (!productData) {
-        return <div>Loading...</div>;
-    }
+    // Xử lý thêm giỏ hàng
+    const handleAddToCart = async () => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (!user) {
+            navigate('/login');
+            return;
+        }
+        if (!size) {
+            alert('Vui lòng chọn kích cỡ!');
+            return;
+        }
+
+        const cartItem = {
+            userId: user.maKH,          // user id lấy từ localStorage
+            maSP: productData.maSP,
+            kichCo: size,
+            soluong: 1,
+            gia: price,
+            anh: image,              // Add image URL here
+        };
+        console.log('Cart Item:', cartItem);
+        try {
+            const res = await fetch('http://localhost:8080/api/cart/add', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(cartItem),
+            });
+            if (!res.ok) throw new Error('Failed to add to cart');
+            await res.json();
+            alert('Thêm vào giỏ hàng thành công!');
+        } catch (error) {
+            console.error(error);
+            alert('Lỗi khi thêm vào giỏ hàng');
+        }
+    };
+
+    if (!productData) return <div>Loading...</div>;
 
     return (
         <div className='product-page-container'>
@@ -69,7 +98,7 @@ const Product = () => {
                         ))}
                         <p>(122)</p>
                     </div>
-                    <p className='product-price'>{currency}{price}</p> {/* Display updated price */}
+                    <p className='product-price'>{currency}{price}</p>
                     <div className='product-size-selection'>
                         <p>Select Size</p>
                         <div className='product-size-buttons'>
@@ -84,7 +113,7 @@ const Product = () => {
                             ))}
                         </div>
                     </div>
-                    <button onClick={() => addToCart(productData.maSP, size)} className='add-to-cart-btn'>ADD TO CART</button>
+                    <button onClick={handleAddToCart} className='add-to-cart-btn'>ADD TO CART</button>
                     <hr className='product-info-divider' />
                     <div className='product-guarantee-info'>
                         <p>100% Original product</p>
@@ -105,6 +134,6 @@ const Product = () => {
             <RelatedProduct category={productData.category} subCategory={productData.subCategory} />
         </div>
     );
-}
+};
 
 export default Product;
