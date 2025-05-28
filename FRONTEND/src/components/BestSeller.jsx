@@ -1,37 +1,48 @@
-import React, {useContext, useEffect, useState} from 'react'
-
+import React, { useEffect, useState } from 'react';
 
 import '../style/Lastest.css';
 import '../style/Title.css';
-import {ShopContext} from "../context/ShopContext.jsx";
 import Title from "./Title.jsx";
-import ProductItem from "./ProductItem.jsx"; // Import the CSS file
+import ProductItem from "./ProductItem.jsx";
 
 const BestSeller = () => {
-    const {products} = useContext(ShopContext);
     const [bestSeller, setBestSeller] = useState([]);
 
     useEffect(() => {
-        const  bestProducts = products.filter((item)=>(item.bestseller));
-        setBestSeller(bestProducts.slice(0,5))
+        fetch("http://localhost:8080/api/chitietdonhang/bestsellers")
+            .then((res) => res.json())
+            .then((data) => {
+                setBestSeller(data);
+            })
+            .catch((err) => {
+                console.error("Failed to fetch bestsellers", err);
+            });
     }, []);
+
     return (
         <div className='my-10'>
             <div className='text-center text-3xl py-8'>
-                <Title text1={'BEST'} text2={' SELLER'}/>
-                {/*<p className='w-3/4 m-auto text-xs sm:text-sm md:text-base text-gray-600'>*/}
-                {/*    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the...*/}
-                {/*</p>*/}
+                <Title text1={'BEST'} text2={' SELLER'} />
             </div>
             <div className='grid'>
                 {
                     bestSeller.map((item, index) => (
-                        <ProductItem key={index} id={item._id} image={item.image} name={item.name} price={item.price} />
+                        <ProductItem
+                            key={index}
+                            id={item.maSP}
+                            image={item.hinhAnh}
+                            name={item.tenSP}
+                            price={
+                                item.chiTietList && item.chiTietList.length > 0
+                                    ? Math.min(...item.chiTietList.map(ct => ct.gia))
+                                    : 0
+                            }
+                        />
                     ))
                 }
             </div>
         </div>
     );
-}
+};
 
-export default BestSeller
+export default BestSeller;

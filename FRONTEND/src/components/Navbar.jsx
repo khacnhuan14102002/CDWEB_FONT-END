@@ -5,12 +5,13 @@ import logo from '../assets/anh/logo_1.png';
 import { Link, NavLink } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext.jsx";
 import mana from '../assets/management.png';
-
+import { useNavigate } from "react-router-dom";
 const Navbar = () => {
     const [visible, setVisible] = useState(false);
     const { setShowSearch } = useContext(ShopContext);
     const [user, setUser] = useState(null);
     const [cartCount, setCartCount] = useState(0);
+    const navigate = useNavigate();
 
     // Lấy user từ localStorage
     useEffect(() => {
@@ -84,7 +85,7 @@ const Navbar = () => {
                             <div className="menu">
                                 <p className="menu-item">Xin chào, {user.hoTen}</p>
                                 <p className="menu-item">My Profile</p>
-                                <p className="menu-item">Orders</p>
+                                <p onClick={() => navigate('/orders')} className="menu-item">Orders</p>
                                 <p onClick={handleLogout} className="menu-item">Logout</p>
                             </div>
                         </div>

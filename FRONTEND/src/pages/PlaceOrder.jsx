@@ -11,7 +11,6 @@ const PlaceOrder = () => {
     const [userId, setUserId] = useState(null);
     const navigate = useNavigate();
 
-    // Địa chỉ
     const [provinces, setProvinces] = useState([]);
     const [districts, setDistricts] = useState([]);
     const [communes, setCommunes] = useState([]);
@@ -33,23 +32,22 @@ const PlaceOrder = () => {
     const [showCommuneSuggestions, setShowCommuneSuggestions] = useState(false);
 
     // Thông tin người nhận
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
+    const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
     const [street, setStreet] = useState('');
     const [phone, setPhone] = useState('');
 
-    // Lấy userId từ localStorage
     useEffect(() => {
         const storedUser = localStorage.getItem("user");
         if (storedUser) {
             const user = JSON.parse(storedUser);
-            console.log("User ID:", user.maKH); // Kiểm tra userId
             setUserId(user.maKH);
+            setFullName(user.hoTen || '');
+            setEmail(user.email || '');
+            setPhone(user.soDienThoai || '');
         }
     }, []);
 
-    // Fetch giỏ hàng từ backend
     useEffect(() => {
         if (userId) {
             fetch(`http://localhost:8080/api/cart/${userId}`)
@@ -59,7 +57,6 @@ const PlaceOrder = () => {
         }
     }, [userId]);
 
-    // Load tỉnh thành
     useEffect(() => {
         fetch('https://provinces.open-api.vn/api/p/')
             .then(res => res.json())
@@ -67,7 +64,6 @@ const PlaceOrder = () => {
             .catch(err => console.error('Error loading provinces:', err));
     }, []);
 
-    // Load quận/huyện theo tỉnh
     useEffect(() => {
         if (selectedProvince) {
             fetch(`https://provinces.open-api.vn/api/p/${selectedProvince}?depth=2`)
@@ -83,7 +79,6 @@ const PlaceOrder = () => {
         }
     }, [selectedProvince]);
 
-    // Load xã/phường theo quận/huyện
     useEffect(() => {
         if (selectedDistrict) {
             fetch(`https://provinces.open-api.vn/api/d/${selectedDistrict}?depth=2`)
@@ -96,8 +91,7 @@ const PlaceOrder = () => {
         }
     }, [selectedDistrict]);
 
-    // Hàm xử lý đặt hàng
-    const handlePlaceOrder = () => {
+    const handlePlaceOrder = async () => {
         if (!userId) {
             alert("Bạn cần đăng nhập để đặt hàng.");
             return;
@@ -106,76 +100,98 @@ const PlaceOrder = () => {
             alert("Giỏ hàng trống.");
             return;
         }
-        if (!firstName || !lastName || !email || !street || !phone || !provinceInput || !districtInput || !communeInput) {
+        if (!fullName || !email || !street || !phone || !provinceInput || !districtInput || !communeInput) {
             alert("Vui lòng điền đầy đủ thông tin giao hàng.");
             return;
         }
 
-        // Tạo địa chỉ đầy đủ
         const fullAddress = `${street}, ${communeInput}, ${districtInput}, ${provinceInput}`;
         const totalAmount = cartData.reduce((sum, item) => sum + item.gia * item.soLuong, 0);
 
-        // Tạo dữ liệu đơn hàng, thêm ngày đặt
         const orderData = {
-            maKH: userId,
-            hoTenNguoiNhan: `${firstName} ${lastName}`,
+            khachHang: {
+                maKH: userId
+            },
+            hoTenNguoiNhan: fullName,
             emailNguoiNhan: email,
             diaChiGiaoHang: fullAddress,
             soDienThoai: phone,
             phuongThucThanhToan: method,
             tongTien: totalAmount,
             ngayDat: new Date().toISOString(),
-            diaChi: fullAddress,// Thêm ngày đặt đơn theo ISO
-            chiTietDonHangList: cartData.map(item => ({
-                maSP: item.maSP,
-                kichCo: item.kichCo,
-                soLuong: item.soLuong,
-                gia: item.gia
-            })),
+            diaChi: fullAddress
         };
 
-        fetch('http://localhost:8080/api/donhang', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(orderData),
-        })
-            .then(res => {
-                if (!res.ok) throw new Error('Không thể tạo đơn hàng');
-                return res.json();
-            })
-            .then(data => {
-                alert("Đặt hàng thành công!");
-                // Có thể xóa giỏ hàng nếu muốn
-                navigate('/orders'); // Chuyển đến trang danh sách đơn hàng
-            })
-            .catch(err => {
-                alert("Đã có lỗi xảy ra khi đặt hàng: " + err.message);
+        try {
+            // Tạo đơn hàng
+            const resOrder = await fetch('http://localhost:8080/api/donhang', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(orderData),
             });
+
+            if (!resOrder.ok) {
+                const errorText = await resOrder.text();
+                throw new Error('Không thể tạo đơn hàng: ' + errorText);
+            }
+
+            const createdOrder = await resOrder.json();
+            const maDH = createdOrder.maDH;
+
+            // Gửi từng chi tiết đơn hàng
+            for (const item of cartData) {
+                const chiTietData = {
+                    maDH: maDH,
+                    maSP: item.maSP,
+                    kichThuoc: item.kichCo, // fallback nếu thiếu
+                    soLuong: item.soLuong,
+                    donGia: item.gia,
+                    thanhTien: item.soLuong * item.gia
+                };
+
+                const resDetail = await fetch('http://localhost:8080/api/chitietdonhang', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(chiTietData),
+                });
+
+                if (!resDetail.ok) {
+                    const errorText = await resDetail.text();
+                    throw new Error('Lỗi khi tạo chi tiết đơn hàng: ' + errorText);
+                }
+            }
+
+            // Xóa giỏ hàng
+            const resClearCart = await fetch(`http://localhost:8080/api/cart/clear/${userId}`, {
+                method: 'DELETE',
+            });
+
+            if (!resClearCart.ok) {
+                throw new Error('Không thể xóa giỏ hàng.');
+            }
+
+            navigate('/orders');
+            window.location.reload();
+        } catch (err) {
+            console.error("Order placement error:", err);
+            alert("Đã có lỗi xảy ra khi đặt hàng: " + err.message);
+        }
     };
 
     return (
         <div className='place-order-container'>
-            {/* LEFT SIDE: Delivery Info */}
             <div className='delivery-info-section'>
                 <div className='delivery-info-title'>
                     <Title text1={'DELIVERY'} text2={' INFORMATION'} />
                 </div>
-                <div className='name-inputs'>
-                    <input
-                        className='delivery-input'
-                        type="text"
-                        placeholder='First name'
-                        value={firstName}
-                        onChange={e => setFirstName(e.target.value)}
-                    />
-                    <input
-                        className='delivery-input'
-                        type="text"
-                        placeholder='Last name'
-                        value={lastName}
-                        onChange={e => setLastName(e.target.value)}
-                    />
-                </div>
+
+                <input
+                    className='delivery-input'
+                    type="text"
+                    placeholder='Full name'
+                    value={fullName}
+                    onChange={e => setFullName(e.target.value)}
+                />
                 <input
                     className='delivery-input'
                     type="email"
@@ -191,7 +207,6 @@ const PlaceOrder = () => {
                     onChange={e => setStreet(e.target.value)}
                 />
 
-                {/* Province autocomplete */}
                 <div className="autocomplete-wrapper">
                     <input
                         className='delivery-input'
@@ -225,12 +240,11 @@ const PlaceOrder = () => {
                     )}
                 </div>
 
-                {/* District autocomplete */}
                 <div className="autocomplete-wrapper">
                     <input
                         className='delivery-input'
                         type="text"
-                        placeholder='District '
+                        placeholder='District'
                         value={districtInput}
                         onChange={e => {
                             const value = e.target.value;
@@ -260,7 +274,6 @@ const PlaceOrder = () => {
                     )}
                 </div>
 
-                {/* Commune autocomplete */}
                 <div className="autocomplete-wrapper">
                     <input
                         className='delivery-input'
@@ -304,7 +317,6 @@ const PlaceOrder = () => {
                 />
             </div>
 
-            {/* RIGHT SIDE: Order Summary */}
             <div className='order-summary-section'>
                 <div className='cart-total-wrapper'>
                     <CartTotal cartData={cartData} currency="$" />
@@ -326,7 +338,7 @@ const PlaceOrder = () => {
 
                 <div className='place-order-button-wrapper'>
                     <button onClick={handlePlaceOrder} className='place-order-button'>
-                        PLACE ORDER
+                        CHECK OUT
                     </button>
                 </div>
             </div>

@@ -74,6 +74,7 @@ const Product = () => {
             if (!res.ok) throw new Error('Failed to add to cart');
             await res.json();
             alert('Thêm vào giỏ hàng thành công!');
+            window.location.reload();
         } catch (error) {
             console.error(error);
             alert('Lỗi khi thêm vào giỏ hàng');
