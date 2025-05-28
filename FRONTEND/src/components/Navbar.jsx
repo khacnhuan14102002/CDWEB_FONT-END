@@ -96,9 +96,12 @@ const Navbar = () => {
                     <img src={assets.cart_icon} className='w-5 min-w-5' alt="Cart Icon"/>
                     <p className='badge'>{cartCount}</p>
                 </Link>
-                <Link to='/admin' className='relative'>
-                    <img src={mana} className='w-5 min-w-5' alt="Admin Icon"/>
-                </Link>
+                {user?.role === "admin" && (
+                    <Link to='/admin' className='relative'>
+                        <img src={mana} className='w-5 min-w-5' alt="Admin Icon" />
+                    </Link>
+                )}
+
                 <img onClick={() => setVisible(true)} src={assets.menu_icon} className='menu-c' alt="Menu Icon"/>
             </div>
 

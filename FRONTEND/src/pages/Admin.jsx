@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Users, Package, ShoppingCart, LogOut } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import logo from '../assets/anh/logo_1.png';
-import styles from '../style/Admin/Admin.module.css'; // <--- Import CSS Module
+import logo from '../assets/anh/logo_2.png';
+import styles from '../style/Admin/Admin.module.css';
 
 const Admin = () => {
     const [selectedTab, setSelectedTab] = useState('users');
@@ -350,6 +350,9 @@ const Admin = () => {
             <div className={styles['admin-layout']}>
                 {/* Sidebar */}
                 <div className={styles['admin-sidebar']}>
+                    <div className={styles['sidebar-logo']}>
+                        <img src={logo} alt="Shop Logo" className={styles['logo-image']} />
+                    </div>
                     <div
                         onClick={() => setSelectedTab('users')}
                         className={`${styles['sidebar-item']} ${selectedTab === 'users' ? styles['selected-users'] : ''}`}
