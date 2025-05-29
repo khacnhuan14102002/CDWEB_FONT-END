@@ -133,21 +133,21 @@
     background-color: #218838;
 }
 
-.user-table, .product-table {
+.user-table { /* Chỉ áp dụng cho user-table để tránh xung đột với product-table đã chỉnh sửa */
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-.user-table th, .product-table th,
-.user-table td, .product-table td {
+.user-table th,
+.user-table td {
     border: 1px solid #ddd;
     padding: 12px 15px;
     text-align: left;
 }
 
-.user-table th, .product-table th {
+.user-table th {
     background-color: #f2f2f2;
     color: #555;
     font-weight: bold;
@@ -155,17 +155,24 @@
     font-size: 0.9em;
 }
 
-.user-table tr:nth-child(even), .product-table tr:nth-child(even) {
+.user-table tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
-.user-table tr:hover, .product-table tr:hover {
+.user-table tr:hover {
     background-color: #f1f1f1;
 }
 
-
-
-
+/* --- Action Buttons in User Table (Cũ) --- */
+/* Đảm bảo các nút hành động trong bảng người dùng vẫn đẹp */
+.user-table .action-buttons {
+    display: flex;
+    gap: 8px; /* Khoảng cách giữa các nút */
+    flex-wrap: wrap; /* Cho phép các nút xuống dòng nếu không đủ chỗ */
+    justify-content: flex-start; /* Căn trái các nút */
+    align-items: flex-start; /* Canh trên các nút */
+    padding-top: 0; /* Loại bỏ padding-top thêm nếu không cần */
+}
 
 .edit-button {
     background-color: #007bff;
@@ -286,11 +293,192 @@
     margin-bottom: 20px;
 }
 
+/* --- CẬP NHẬT: Product Table Styles --- */
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    font-size: 0.9em;
+}
+
+.product-table th,
+.product-table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    text-align: left;
+    vertical-align: top; /* Rất quan trọng để nội dung canh top khi có rowspan */
+    word-break: break-word; /* Đảm bảo văn bản dài không làm tràn ô */
+}
+
+.product-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    color: #333;
+}
+
+.product-table tbody tr {
+    /* Đảm bảo mỗi dòng có thể có nền riêng */
+    background-color: #fff;
+}
+
+.product-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* Nền nhạt cho dòng chẵn */
+}
+
+.product-table tbody tr:hover {
+    background-color: #e6f7ff; /* Thay đổi màu hover để nổi bật hơn một chút */
+}
+
+/* Điều chỉnh kích thước hình ảnh để không quá lớn trong mỗi dòng */
 .product-image {
-    width: 50px; /* Adjust as needed */
-    height: 50px; /* Adjust as needed */
+    max-width: 60px; /* Tăng nhẹ kích thước ảnh nếu muốn */
+    max-height: 60px;
     object-fit: cover;
     border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Các nút hành động trong bảng sản phẩm - Đảm bảo căn chỉnh tốt */
+.product-table .action-buttons {
+    display: flex;
+    flex-direction: column; /* Đặt các nút theo cột để chúng không bị tràn trên một dòng */
+    gap: 8px; /* Khoảng cách giữa các nút */
+    align-items: center; /* Căn giữa các nút theo chiều ngang */
+    padding-top: 5px; /* Đảm bảo nút không quá sát border trên của cell */
+}
+
+.product-table .action-buttons button {
+    width: 80px; /* Có thể đặt chiều rộng cố định cho các nút để chúng đồng đều */
+    padding: 7px 5px; /* Điều chỉnh padding cho phù hợp với chiều rộng cố định */
+    font-size: 0.8em; /* Giảm kích thước font cho nút nếu cần */
+}
+
+/* --- CẬP NHẬT: Form Styles for Product Editing --- */
+.edit-product-form {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    margin-top: 30px;
+    border-left: 5px solid #28a745; /* Đường viền màu xanh lá cây nổi bật */
+}
+
+.form-title {
+    color: #333;
+    margin-bottom: 25px;
+    text-align: center;
+    font-size: 1.8em;
+    font-weight: 600;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-field label {
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #555;
+    font-size: 0.95em;
+}
+
+.form-input,
+.form-input select,
+.form-input textarea {
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    width: 100%;
+    box-sizing: border-box; /* Đảm bảo padding không làm tăng kích thước */
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-input:focus,
+.form-input select:focus,
+.form-input textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+.form-input[readOnly] {
+    background-color: #e9ecef;
+    cursor: not-allowed;
+}
+
+.error-text {
+    color: #dc3545;
+    font-size: 0.85em;
+    margin-top: 5px;
+}
+
+/* --- CẬP NHẬT: Product Detail Section Styles --- */
+.section-title {
+    color: #444;
+    margin-top: 35px;
+    margin-bottom: 20px;
+    font-size: 1.6em; /* Tăng kích thước font nhẹ */
+    font-weight: 600;
+    border-bottom: 2px solid #ddd; /* Đường kẻ đậm hơn */
+    padding-bottom: 10px;
+    text-align: left; /* Căn trái tiêu đề */
+}
+
+/* Container cho mỗi chi tiết sản phẩm trong form */
+.product-detail-item {
+    background-color: #f0f8ff; /* Nền màu xanh nhạt để nổi bật */
+    border: 1px solid #cceeff; /* Viền màu xanh tương ứng */
+    border-left: 5px solid #66bb6a; /* Đường viền bên trái màu xanh lá cây đậm hơn */
+    border-radius: 10px; /* Bo góc nhiều hơn một chút */
+    padding: 20px;
+    margin-bottom: 20px; /* Khoảng cách giữa các chi tiết */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08); /* Bóng đổ rõ hơn */
+}
+
+.product-detail-item .form-grid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* Điều chỉnh minmax cho các trường nhỏ hơn */
+    gap: 15px; /* Giữ nguyên hoặc điều chỉnh khoảng cách giữa các trường con */
+    margin-bottom: 0; /* Loại bỏ margin dưới cùng mặc định của form-grid */
+}
+
+/* Các nút thêm/xóa chi tiết */
+.add-detail-button,
+.delete-detail-button {
+    padding: 10px 18px; /* Tăng kích thước padding */
+    border: none;
+    border-radius: 6px; /* Bo góc lớn hơn */
+    cursor: pointer;
+    font-size: 0.95em; /* Tăng kích thước font nhẹ */
+    font-weight: 500;
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    margin-top: 15px; /* Khoảng cách với các input trên */
+}
+
+.add-detail-button {
+    background-color: #28a745; /* Màu xanh lá cây */
+    color: white;
+    margin-right: 15px; /* Khoảng cách giữa nút thêm và các nút khác */
+}
+
+.add-detail-button:hover {
+    background-color: #218838;
+    transform: translateY(-2px); /* Hiệu ứng nổi lên khi hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.delete-detail-button {
+    background-color: #dc3545; /* Màu đỏ */
+    color: white;
+}
+
+.delete-detail-button:hover {
+    background-color: #c82333;
+    transform: translateY(-2px); /* Hiệu ứng nổi lên khi hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* --- Responsive Adjustments --- */
@@ -338,8 +526,14 @@
         width: 100%;
     }
 
+    /* Đảm bảo form-grid của cả người dùng và sản phẩm responsive */
     .form-grid {
         grid-template-columns: 1fr;
+    }
+
+    /* Điều chỉnh form-grid của chi tiết sản phẩm trên màn hình nhỏ */
+    .product-detail-item .form-grid {
+        grid-template-columns: 1fr; /* 1 cột trên màn hình nhỏ */
     }
 
     .form-buttons {
