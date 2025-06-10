@@ -51,8 +51,8 @@ const Admin = () => {
                             tenSP: p.tenSP,
                             moTa: p.moTa,
                             hinhAnh: p.hinhAnh,
-                            danhMuc: p.danhMuc, // Giữ nguyên object danhMuc để chỉnh sửa
-                            type: p.type,       // Giữ nguyên object type để chỉnh sửa
+                            danhMuc: p.danhMuc,
+                            type: p.type,
                             TenDanhMuc: p.tenDanhMuc || 'Không xác định',
                             TenDoiTuong: p.tenType || 'Không xác định',
 
@@ -63,8 +63,8 @@ const Admin = () => {
                             soLuong: chiTiet.soLuong,
 
                             // Các trường khác cho hiển thị trong bảng
-                            GiaFormatted: chiTiet.gia.toLocaleString('vi-VN') + 'đ', // Định dạng giá cho hiển thị
-                            IsFirstDetail: index === 0 // Đánh dấu chi tiết đầu tiên để hợp nhất các ô (merge cells)
+                            GiaFormatted: chiTiet.gia.toLocaleString('vi-VN') + 'đ',
+                            IsFirstDetail: index === 0
                         });
                     });
                 } else {
@@ -439,11 +439,11 @@ const Admin = () => {
                                 </thead>
                                 <tbody>
                                 {filteredUsers.map((u, i) => (
-                                    <tr key={u.maKH || i}> {/* Đổi u.MaKH thành u.maKH */}
-                                        <td>{u.maKH}</td> {/* Đổi u.MaKH thành u.maKH */}
-                                        <td>{u.hoTen}</td> {/* Đổi u.HoTen thành u.hoTen */}
-                                        <td>{u.email}</td> {/* Đổi u.Email thành u.email */}
-                                        <td>{u.soDienThoai}</td> {/* Đổi u.SoDienThoai thành u.soDienThoai */}
+                                    <tr key={u.maKH || i}> {}
+                                        <td>{u.maKH}</td> {}
+                                        <td>{u.hoTen}</td> {}
+                                        <td>{u.email}</td> {}
+                                        <td>{u.soDienThoai}</td> {}
                                         <td>{u.ngayDangKy}</td>
                                         <td className={styles['action-buttons']}>
                                             <button
@@ -661,7 +661,7 @@ const Admin = () => {
                                             id="danhMuc"
                                             name="danhMuc"
                                             // Use the new dedicated ID state for the value
-                                            value={editingProduct.selectedDanhMucId}
+                                            value={editingProduct.tenDanhMuc|| ''}
                                             onChange={handleChangeProduct}
                                             className={styles['form-input']}
                                             disabled={loadingCategories}

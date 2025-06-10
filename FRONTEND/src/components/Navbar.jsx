@@ -84,7 +84,7 @@ const Navbar = () => {
                         <div className="dropdown-menu">
                             <div className="menu">
                                 <p className="menu-item">Xin chào, {user.hoTen}</p>
-                                <p className="menu-item">My Profile</p>
+                                <p  onClick={() => navigate('/profile')}className="menu-item">My Profile</p>
                                 <p onClick={() => navigate('/orders')} className="menu-item">Orders</p>
                                 <p onClick={handleLogout} className="menu-item">Logout</p>
                             </div>

@@ -14,6 +14,7 @@ import Orders from "./pages/Orders.jsx";
 import Footer from "./components/Footer.jsx";
 import SearchBar from "./components/SearchBar.jsx";
 import Admin from "./pages/Admin.jsx";
+import Profile from "./pages/Profile.jsx";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -45,7 +46,7 @@ function App() {
                 <Route path='/login' element={<AppLayout><Login /></AppLayout>} />
                 <Route path='/place-order' element={<AppLayout><PlaceOrder /></AppLayout>} />
                 <Route path='/orders' element={<AppLayout><Orders /></AppLayout>} />
-
+                <Route path='/profile' element={<AppLayout><Profile /></AppLayout>} />
                 {/* Route riêng cho Admin */}
                 <Route path='/admin' element={<Admin />} />
             </Routes>

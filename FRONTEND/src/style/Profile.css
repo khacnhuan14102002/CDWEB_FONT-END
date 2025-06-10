@@ -1,0 +1,90 @@
+/* Order.css */
+
+.orders-container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+
+}
+
+.orders-title-wrapper {
+    text-align: center;
+    margin-bottom: 20px;
+
+}
+
+.profile-details {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+.profile-details p {
+    margin: 10px 0;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.profile-details p strong {
+    color: #333;
+}
+
+.profile-details p:last-child {
+    border-bottom: none;
+}
+
+.orders-title-wrapper h1 {
+    font-size: 24px;
+    color: #333;
+}
+
+.orders-title-wrapper h2 {
+    font-size: 18px;
+    color: #777;
+}
+.profile-edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+
+.profile-edit-form input {
+    padding: 10px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    width: 100%;
+    transition: border-color 0.3s ease;
+}
+
+.profile-edit-form input:focus {
+    border-color: #007bff;
+    outline: none;
+    background-color: #f9f9ff;
+}
+
+ button {
+    margin-top: 10px;
+    padding: 10px 16px;
+    font-size: 16px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    align-self: flex-start;
+    transition: background-color 0.3s;
+
+     justify-content: center;
+     align-items: center;
+}
+
+.profile-edit-form button:hover {
+    background-color: #218838;
+}
+
