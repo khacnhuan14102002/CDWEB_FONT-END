@@ -205,3 +205,22 @@
     font-size: 0.875rem; /* text-sm */
     color: #6b7280; /* text-gray-500 */
 }
+.product-size-buttons button {
+    border: 1px solid #e5e7eb; /* border */
+    padding: 8px 16px; /* py-2 px-4 */
+    background-color: #C0C0C0; /* bg-gray-100 */
+    cursor: pointer; /* Add pointer cursor for better UX */
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease; /* Smooth transition */
+}
+
+.product-size-buttons button.selected {
+    background-color: cornflowerblue; /* New: Dark background */
+    color: white; /* New: White text */
+    border-color: black; /* Optional: Make border match background */
+    /* If you still want orange border: border-color: #f97316; */
+}
+
+/* Optional: Add hover effect for non-selected buttons */
+.product-size-buttons button:not(.selected):hover {
+    background-color: #e5e7eb; /* A slightly darker gray on hover */
+}

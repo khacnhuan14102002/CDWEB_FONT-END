@@ -1,0 +1,176 @@
+{
+  "home": "TRANG CHỦ",
+  "collection": "BỘ SƯU TẬP",
+  "about": "GIỚI THIỆU",
+  "contact": "LIÊN HỆ",
+  "hello": "Xin chào, {{name}}",
+  "myProfile": "Hồ sơ của tôi",
+  "orders": "Đơn hàng",
+  "logout": "Đăng xuất",
+  "back": "Trở về",
+  "best": "BÁN",
+  "seller": "CHẠY",
+  "latest": "MỚI NHẤT",
+  "collections": "BỘ SƯU TẬP",
+  "related": "SẢN PHẨM",
+  "products": "LIÊN QUAN",
+  "my": "HỒ SƠ",
+  "profile": "",
+  "fullName": "Họ tên",
+  "email": "Email",
+  "phone": "Số điện thoại",
+  "save": "Lưu",
+  "updateProfile": "Cập nhật thông tin",
+  "loadingProfile": "Đang tải thông tin hồ sơ...",
+  "selectSize": "Chọn kích cỡ",
+  "addToCart": "Thêm vào giỏ hàng",
+  "originalProduct": "Sản phẩm chính hãng 100%",
+  "codAvailable": "Hỗ trợ thanh toán khi nhận hàng",
+  "easyReturn": "Đổi trả dễ dàng trong vòng 7 ngày",
+  "description": "Mô tả",
+  "reviews": "Đánh giá ({{count}})",
+  "selectSizeAlert": "Vui lòng chọn kích cỡ!",
+  "addSuccess": "Thêm vào giỏ hàng thành công!",
+  "addError": "Lỗi khi thêm vào giỏ hàng",
+  "loading": "Đang tải...",
+  "footer": {
+    "description": "Cung cấp những sản phẩm chất lượng và an toàn nhất cho thú cưng của bạn – vì chúng xứng đáng được yêu thương.",
+    "company": "CÔNG TY",
+    "home": "Trang chủ",
+    "about": "Về chúng tôi",
+    "delivery": "Giao hàng",
+    "privacy": "Chính sách bảo mật",
+    "getInTouch": "LIÊN HỆ",
+    "phone": "+84-123-456-789",
+    "email": "lienhe@gmail.com",
+    "copyright": "Bản quyền 2025@ petshop.com - Đã đăng ký bản quyền."
+  },
+  "policy": {
+    "exchangeTitle": "Chính sách đổi trả dễ dàng",
+    "exchangeDescription": "Hỗ trợ đổi trả sản phẩm thú cưng nhanh chóng và đơn giản",
+
+    "returnTitle": "Hoàn trả trong 7 ngày",
+    "returnDescription": "Miễn phí hoàn trả sản phẩm trong vòng 7 ngày nếu có lỗi",
+
+    "supportTitle": "Hỗ trợ khách hàng tốt nhất",
+    "supportDescription": "Đội ngũ hỗ trợ 24/7 sẵn sàng vì thú cưng của bạn"
+  },
+  "newsletter": {
+    "title": "Đăng ký nhận tin & nhận ngay 20% ưu đãi",
+    "subtitle": "Cập nhật thông tin mới nhất về sản phẩm và ưu đãi cho thú cưng của bạn.",
+    "placeholder": "Nhập email của bạn",
+    "button": "ĐĂNG KÝ"
+  },
+  "hero": {
+    "label": "SẢN PHẨM BÁN CHẠY",
+    "title": "HÀNG MỚI VỀ CHO THÚ CƯNG",
+    "shopNow": "MUA NGAY"
+  },
+  "cart": {
+    "title1": "TỔNG",
+    "title2": " GIỎ HÀNG",
+    "subtotal": "Tạm tính",
+    "shipping": "Phí vận chuyển",
+    "total": "Tổng cộng"
+  },
+  "product": {
+    "new": "Mới",
+    "sale": "Khuyến mãi"
+  },
+  "about_1": {
+    "title1": "VỀ",
+    "title2": " CHÚNG TÔI",
+    "imageAlt": "Về chúng tôi",
+    "introTitle": "HƠN CẢ MỘT CỬA HÀNG THÚ CƯNG",
+    "introDescription": "Chúng tôi không chỉ là nơi bán sản phẩm cho thú cưng mà còn là một không gian yêu thương, nơi gắn kết giữa con người và thú cưng...",
+    "weProvide": "CHÚNG TÔI CUNG CẤP:",
+    "section1": {
+      "title": "1. Thức ăn & dinh dưỡng chất lượng cao:",
+      "point1": "Đầy đủ các dòng sản phẩm từ thức ăn hạt, pate, thức ăn tươi...",
+      "point2": "Nhập khẩu chính hãng từ các thương hiệu uy tín như Royal Canin...",
+      "point3": "Tư vấn thực đơn phù hợp với từng giống loài..."
+    },
+    "section2": {
+      "title": "2. Phụ kiện tiện ích & thời trang:",
+      "point1": "Lồng, chuồng, bát ăn, khay vệ sinh, quần áo...",
+      "point2": "Đồ chơi phát triển trí tuệ và thể chất...",
+      "point3": "Sản phẩm chăm sóc: sữa tắm, bàn chải, kéo tỉa..."
+    },
+    "section3": {
+      "title": "3. Dịch vụ đi kèm:",
+      "point1": "Tư vấn dinh dưỡng miễn phí.",
+      "point2": "Đặt hàng và giao tận nơi nhanh chóng.",
+      "point3": "Chính sách đổi trả rõ ràng, minh bạch."
+    },
+    "whyChooseUsTitle1": "TẠI SAO",
+    "whyChooseUsTitle2": " CHỌN CHÚNG TÔI",
+    "why1": {
+      "title": "Sản phẩm chất lượng:",
+      "text": "Chúng tôi chỉ cung cấp các sản phẩm được kiểm định kỹ lưỡng..."
+    },
+    "why2": {
+      "title": "Tiện lợi & đa dạng:",
+      "text": "Mua sắm dễ dàng với nhiều lựa chọn phù hợp cho mọi loại thú cưng..."
+    },
+    "why3": {
+      "title": "Hỗ trợ tận tâm:",
+      "text": "Đội ngũ tư vấn giàu kinh nghiệm sẵn sàng hỗ trợ 24/7..."
+    }
+  },
+  "contact_1": {
+    "title1": "LIÊN HỆ",
+    "title2": " VỚI CHÚNG TÔI",
+    "imageAlt": "Liên hệ chúng tôi",
+    "storeTitle": "Cửa hàng của chúng tôi",
+    "address": "Số 11/5\nLinh Xuân, Thủ Đức",
+    "tel": "Điện thoại: 031231312",
+    "email": "Email: Petshop@gmail.com"
+  },
+  "cart_1": {
+    "title1": "GIỎ",
+    "title2": " HÀNG",
+    "emptyAlert": "Giỏ hàng của bạn đang trống!",
+    "checkout": "TIẾN HÀNH THANH TOÁN",
+    "removeAlt": "Xoá sản phẩm"
+  },
+  "collection_1": {
+    "filters": "BỘ LỌC",
+    "category": "DANH MỤC",
+    "productType": "LOẠI SẢN PHẨM",
+    "all1": "TẤT CẢ  ",
+    "all2": "SẢN PHẨM",
+    "sortRelevant": "Sắp xếp: Phù hợp",
+    "sortLowHigh": "Sắp xếp: Giá tăng dần",
+    "sortHighLow": "Sắp xếp: Giá giảm dần",
+    "loading": "Đang tải sản phẩm...",
+    "error": "Lỗi",
+    "noProducts": "Không tìm thấy sản phẩm cho trang này."
+  },
+  "order": {
+    "my1": "ĐƠN  ",
+    "my2": "HÀNG CỦA TÔI",
+    "noOrders": "Không tìm thấy đơn hàng nào.",
+    "order": "Đơn hàng",
+    "status": "Trạng thái",
+    "total": "Tổng tiền",
+    "payment": "Thanh toán",
+    "quantity": "Số lượng",
+    "size": "Kích thước"
+  },
+  "checkout": {
+    "delivery1": "THÔNG TIN  ",
+    "delivery2": "GIAO HÀNG",
+    "payment1": "PHƯƠNG THỨC  ",
+    "payment2": "THANH TOÁN",
+    "fullName": "Họ và tên",
+    "email": "Địa chỉ email",
+    "street": "Đường",
+    "province": "Tỉnh / Thành phố",
+    "district": "Quận / Huyện",
+    "commune": "Phường / Xã",
+    "phone": "Số điện thoại",
+    "cashOnDelivery": "THANH TOÁN KHI NHẬN HÀNG",
+    "checkout": "ĐẶT HÀNG"
+  }
+
+}

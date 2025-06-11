@@ -4,7 +4,7 @@ import CartTotal from "../components/CartTotal.jsx";
 import { assets } from "../assets/assets.js";
 import { useNavigate } from 'react-router-dom';
 import '../style/Place.css';
-
+import { useTranslation } from 'react-i18next';
 const PlaceOrder = () => {
     const [method, setMethod] = useState('cod');
     const [cartData, setCartData] = useState([]);
@@ -36,6 +36,7 @@ const PlaceOrder = () => {
     const [email, setEmail] = useState('');
     const [street, setStreet] = useState('');
     const [phone, setPhone] = useState('');
+    const { t } = useTranslation();
 
     useEffect(() => {
         const storedUser = localStorage.getItem("user");
@@ -182,27 +183,27 @@ const PlaceOrder = () => {
         <div className='place-order-container'>
             <div className='delivery-info-section'>
                 <div className='delivery-info-title'>
-                    <Title text1={'DELIVERY'} text2={' INFORMATION'} />
+                    <Title text1={t('checkout.delivery1')} text2={t('checkout.delivery2')} />
                 </div>
 
                 <input
                     className='delivery-input'
                     type="text"
-                    placeholder='Full name'
+                    placeholder={t('checkout.fullName')}
                     value={fullName}
                     onChange={e => setFullName(e.target.value)}
                 />
                 <input
                     className='delivery-input'
                     type="email"
-                    placeholder='Email address'
+                    placeholder={t('checkout.email')}
                     value={email}
                     onChange={e => setEmail(e.target.value)}
                 />
                 <input
                     className='delivery-input'
                     type="text"
-                    placeholder='Street'
+                    placeholder={t('checkout.street')}
                     value={street}
                     onChange={e => setStreet(e.target.value)}
                 />
@@ -211,7 +212,7 @@ const PlaceOrder = () => {
                     <input
                         className='delivery-input'
                         type="text"
-                        placeholder='Province'
+                        placeholder={t('checkout.province')}
                         value={provinceInput}
                         onChange={e => {
                             const value = e.target.value;
@@ -244,7 +245,7 @@ const PlaceOrder = () => {
                     <input
                         className='delivery-input'
                         type="text"
-                        placeholder='District'
+                        placeholder={t('checkout.district')}
                         value={districtInput}
                         onChange={e => {
                             const value = e.target.value;
@@ -278,7 +279,7 @@ const PlaceOrder = () => {
                     <input
                         className='delivery-input'
                         type="text"
-                        placeholder='Commune'
+                        placeholder={t('checkout.commune')}
                         value={communeInput}
                         onChange={e => {
                             const value = e.target.value;
@@ -311,7 +312,7 @@ const PlaceOrder = () => {
                 <input
                     className='delivery-input'
                     type="tel"
-                    placeholder='Phone'
+                    placeholder={t('checkout.phone')}
                     value={phone}
                     onChange={e => setPhone(e.target.value)}
                 />
@@ -323,7 +324,7 @@ const PlaceOrder = () => {
                 </div>
 
                 <div className='payment-method-section'>
-                    <Title text1={'PAYMENT'} text2={' METHOD'} />
+                    <Title text1={t('checkout.payment1')} text2={t('checkout.payment2')} />
                     <div className='payment-method-options'>
                         <div onClick={() => setMethod('stripe')} className='payment-option'>
                             <p className={`payment-radio-button ${method === 'stripe' ? 'active' : ''}`}></p>
@@ -331,14 +332,15 @@ const PlaceOrder = () => {
                         </div>
                         <div onClick={() => setMethod('cod')} className='payment-option'>
                             <p className={`payment-radio-button ${method === 'cod' ? 'active' : ''}`}></p>
-                            <p className='cod-text'>CASH ON DELIVERY</p>
+                            <p className='cod-text'>{t('checkout.cashOnDelivery')}</p>
+
                         </div>
                     </div>
                 </div>
 
                 <div className='place-order-button-wrapper'>
                     <button onClick={handlePlaceOrder} className='place-order-button'>
-                        CHECK OUT
+                        {t('checkout.checkout')}
                     </button>
                 </div>
             </div>

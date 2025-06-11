@@ -1,0 +1,176 @@
+{
+  "home": "HOME",
+  "collection": "COLLECTION",
+  "about": "ABOUT",
+  "contact": "CONTACT",
+  "hello": "Hello, {{name}}",
+  "myProfile": "My Profile",
+  "orders": "Orders",
+  "logout": "Logout",
+  "back": "Back",
+  "best": "BEST",
+  "seller": "SELLER",
+  "latest": "LATEST",
+  "collections": "COLLECTIONS",
+  "related": "RELATED",
+  "products": "PRODUCTS",
+  "my": "MY",
+  "profile": "PROFILE",
+  "fullName": "Full Name",
+  "email": "Email",
+  "phone": "Phone",
+  "save": "Save",
+  "updateProfile": "Update Profile",
+  "loadingProfile": "Loading profile information...",
+  "selectSize": "Select Size",
+  "addToCart": "Add to Cart",
+  "originalProduct": "100% Original product",
+  "codAvailable": "Cash on delivery is available on this product",
+  "easyReturn": "Easy return and exchange policy within 7 days",
+  "description": "Description",
+  "reviews": "Reviews({{count}})",
+  "selectSizeAlert": "Please select a size!",
+  "addSuccess": "Added to cart successfully!",
+  "addError": "Failed to add to cart",
+  "loading": "Loading...",
+  "footer": {
+    "description": "Providing the best quality and safest products for your pets – because they deserve the best care.",
+    "company": "COMPANY",
+    "home": "Home",
+    "about": "About us",
+    "delivery": "Delivery",
+    "privacy": "Privacy policy",
+    "getInTouch": "GET IN TOUCH",
+    "phone": "+1-212-456-7890",
+    "email": "contact@gmail.com",
+    "copyright": "Copyright 2025@ petshop.com - All Right Reserved."
+  },
+  "policy": {
+    "exchangeTitle": "Easy Exchange Policy",
+    "exchangeDescription": "Quick and simple pet product exchanges made easy",
+
+    "returnTitle": "7-Day Return Policy",
+    "returnDescription": "Free returns within 7 days for any issues",
+
+    "supportTitle": "Top-notch Customer Support",
+    "supportDescription": "24/7 support dedicated to your beloved pets"
+  },
+  "newsletter": {
+    "title": "Subscribe now & get 20% off",
+    "subtitle": "Stay updated on the latest pet products and offers.",
+    "placeholder": "Enter your email",
+    "button": "SUBSCRIBE"
+  },
+  "hero": {
+    "label": "OUR BESTSELLERS",
+    "title": "LATEST PET ARRIVALS",
+    "shopNow": "SHOP NOW"
+  },
+  "cart": {
+    "title1": "CART",
+    "title2": " TOTAL",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping Fee",
+    "total": "Total"
+  },
+  "product": {
+    "new": "New",
+    "sale": "Sale"
+  },
+  "about_1": {
+    "title1": "ABOUT",
+    "title2": " US",
+    "imageAlt": "About us",
+    "introTitle": "MORE THAN A PET STORE",
+    "introDescription": "We are more than a store – we are a loving space that connects people and pets...",
+    "weProvide": "WE PROVIDE:",
+    "section1": {
+      "title": "1. High-quality food & nutrition:",
+      "point1": "Wide range of dry food, pate, fresh food, digestion support...",
+      "point2": "Imported directly from trusted brands like Royal Canin...",
+      "point3": "Custom meal plans based on breed, age, and health."
+    },
+    "section2": {
+      "title": "2. Useful & stylish accessories:",
+      "point1": "Cages, bowls, litter boxes, clothes, collars, leashes...",
+      "point2": "Interactive toys to boost intelligence and fitness...",
+      "point3": "Care products: shampoo, brushes, grooming tools..."
+    },
+    "section3": {
+      "title": "3. Additional services:",
+      "point1": "Free nutrition consultation.",
+      "point2": "Fast delivery to your door.",
+      "point3": "Clear and fair return policy."
+    },
+    "whyChooseUsTitle1": "WHY",
+    "whyChooseUsTitle2": " CHOOSE US",
+    "why1": {
+      "title": "Quality Products:",
+      "text": "We offer only thoroughly tested and pet-safe products."
+    },
+    "why2": {
+      "title": "Convenient & Diverse:",
+      "text": "Easy shopping with a variety of products for all pets."
+    },
+    "why3": {
+      "title": "Dedicated Support:",
+      "text": "Our expert team is ready to assist you 24/7."
+    }
+  },
+  "contact_1": {
+    "title1": "CONTACT",
+    "title2": " US",
+    "imageAlt": "Contact us",
+    "storeTitle": "Our Store",
+    "address": "No. 11/5\nLinh Xuan, Thu Duc",
+    "tel": "Tel: 031231312",
+    "email": "Email: Petshop@gmail.com"
+  },
+  "cart_1": {
+    "title1": "YOUR",
+    "title2": " CART",
+    "emptyAlert": "Your cart is empty!",
+    "checkout": "PROCEED TO CHECKOUT",
+    "removeAlt": "Remove item"
+  },
+  "collection_1": {
+    "filters": "FILTERS",
+    "category": "CATEGORY",
+    "productType": "PRODUCT TYPE",
+    "all1": "ALL  ",
+    "all2": "COLLECTIONS",
+    "sortRelevant": "Sort by: Relevant",
+    "sortLowHigh": "Sort by: Low to High",
+    "sortHighLow": "Sort by: High to Low",
+    "loading": "Loading products...",
+    "error": "Error",
+    "noProducts": "No products found for this page."
+  },
+  "order": {
+    "my1": "MY  "  ,
+    "my2": "ORDERS",
+    "noOrders": "No orders found.",
+    "order": "Order",
+    "status": "Status",
+    "total": "Total",
+    "payment": "Payment",
+    "quantity": "Quantity",
+    "size": "Size"
+  },
+  "checkout": {
+    "delivery1": "DELIVERY  ",
+    "delivery2": "  INFORMATION  ",
+    "payment1": "PAYMENT",
+    "payment2": "METHOD",
+    "fullName": "Full name",
+    "email": "Email address",
+    "street": "Street",
+    "province": "Province",
+    "district": "District",
+    "commune": "Commune",
+    "phone": "Phone",
+    "cashOnDelivery": "CASH ON DELIVERY",
+    "checkout": "CHECK OUT"
+  }
+
+}

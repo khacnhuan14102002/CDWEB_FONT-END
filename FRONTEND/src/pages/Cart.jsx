@@ -4,12 +4,14 @@ import { assets } from "../assets/assets.js";
 import '../style/Cart.css';
 import CartTotal from "../components/CartTotal.jsx";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 const Cart = () => {
     const [cartData, setCartData] = useState([]);
     const [currency, setCurrency] = useState('$');
     const navigate = useNavigate();
     const [userId, setUserId] = useState(null);
+    const { t } = useTranslation();
 
     // State lưu giá trị input tạm thời
     const [inputValues, setInputValues] = useState({});
@@ -98,7 +100,7 @@ const Cart = () => {
     return (
         <div className='cart-container'>
             <div className='cart-title'>
-                <Title text1={'YOUR'} text2={' CART'} />
+                <Title  text2={t('cart_1.title2')} />
             </div>
             <div>
                 {cartData.map((item) => (
@@ -161,8 +163,9 @@ const Cart = () => {
                     <CartTotal cartData={cartData} currency={currency} />
                     <div className='checkout-button-container'>
                         <button className='checkout-button' onClick={handleCheckout}>
-                            PROCEED TO CHECKOUT
+                            {t("cart_1.checkout")}
                         </button>
+
                     </div>
                 </div>
             </div>

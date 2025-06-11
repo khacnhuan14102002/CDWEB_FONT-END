@@ -217,3 +217,123 @@
 .nav-link:hover {
     background-color: #F3F4F6; /* Màu nền khi hover */
 }
+/* navbar.css */
+/* Thiết lập chung cho các icon */
+.icon, .w-5, .menu-c {
+    width: 1.25rem; /* 20px */
+    height: 1.25rem; /* Đảm bảo là hình vuông */
+    object-fit: contain;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.icon:hover, .menu-c:hover {
+    transform: scale(1.1); /* Hiệu ứng khi hover */
+}
+
+/* Đảm bảo icon flag không bị méo và đồng đều */
+.flag-icon {
+    width: 1.5rem;
+    height: 1rem;
+    object-fit: cover;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.flag-icon:hover {
+    transform: scale(1.1);
+}
+
+/* Căn chỉnh badge cho cart icon */
+.relative .badge {
+    right: -6px;
+    top: -6px;
+    bottom: auto;
+    font-weight: bold;
+    background-color: red; /* Hoặc giữ màu đen tùy bạn */
+}
+
+/* Responsive chỉnh cho icon hàng ngang tốt hơn */
+@media (max-width: 640px) {
+    .icon, .w-5, .menu-c {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+}
+.language-dropdown {
+    position: relative;
+    cursor: pointer;
+}
+
+.language-options {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    z-index: 10;
+    padding: 5px;
+    border-radius: 5px;
+    min-width: 120px;
+}
+
+.language-dropdown:hover .language-options {
+    display: block;
+}
+
+.language-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.language-option:hover {
+    background-color: #f0f0f0;
+}
+
+.flag-icon {
+    width: 20px;
+    height: 14px;
+    object-fit: cover;
+}
+.language-selector {
+    position: relative;
+    cursor: pointer;
+}
+
+.flag-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+}
+
+.dropdown-flags {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 5px;
+    z-index: 10;
+}
+
+.flag-option {
+    display: block;
+    width: 24px;
+    height: 24px;
+    margin: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.flag-option:hover {
+    transform: scale(1.1);
+}
+

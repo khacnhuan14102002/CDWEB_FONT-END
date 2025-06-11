@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import Title from "../components/Title.jsx";
 import '../style/Profile.css';
+import { useTranslation } from 'react-i18next';
 
 const Profile = () => {
     const [user, setUser] = useState(null);
     const [profile, setProfile] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState({});
+    const { t } = useTranslation();
 
     useEffect(() => {
         const storedUser = localStorage.getItem("user");
@@ -65,14 +67,14 @@ const Profile = () => {
     return (
         <div className='orders-container'>
             <div className='orders-title-wrapper'>
-                <Title text1={'MY'} text2={' PROFILE'} />
+                <Title text1={t('my')} text2={t('profile')} />
             </div>
 
             {profile ? (
                 <div className='profile-details'>
                     {isEditing ? (
                         <div className="profile-edit-form">
-                            <p><strong>Họ tên:</strong></p>
+                            <p><strong>{t('fullName')}:</strong></p>
                             <input
                                 type="text"
                                 name="hoTen"
@@ -81,7 +83,7 @@ const Profile = () => {
                                 placeholder="Họ tên"
                             />
 
-                            <p><strong>Email:</strong></p>
+                            <p><strong>{t('email')}:</strong></p>
                             <input
                                 type="email"
                                 name="email"
@@ -90,7 +92,7 @@ const Profile = () => {
                                 placeholder="Email"
                             />
 
-                            <p><strong>SĐT:</strong></p>
+                            <p><strong>{t('phone')}:</strong></p>
                             <input
                                 type="text"
                                 name="soDienThoai"
@@ -99,19 +101,19 @@ const Profile = () => {
                                 placeholder="Số điện thoại"
                             />
 
-                            <button onClick={handleUpdate}>Lưu</button>
+                            <button onClick={handleUpdate}>{t('save')}</button>
                         </div>
                     ) : (
                         <div>
-                            <p><strong>Họ tên:</strong> {profile.hoTen}</p>
-                            <p><strong>Email:</strong> {profile.email}</p>
-                            <p><strong>SĐT:</strong> {profile.soDienThoai}</p>
-                            <button onClick={handleEditClick}>Cập nhật thông tin</button>
+                            <p><strong>{t('fullName')}:</strong> {profile.hoTen}</p>
+                            <p><strong>{t('email')}:</strong> {profile.email}</p>
+                            <p><strong>{t('phone')}:</strong> {profile.soDienThoai}</p>
+                            <button onClick={handleEditClick}>{t('updateProfile')}</button>
                         </div>
                     )}
                 </div>
             ) : (
-                <p>Đang tải thông tin hồ sơ...</p>
+                <p>{t('loadingProfile')}</p>
             )}
         </div>
     );

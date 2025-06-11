@@ -4,6 +4,7 @@ import { ShopContext } from "../context/ShopContext.jsx";
 import { assets } from "../assets/assets.js";
 import RelatedProduct from "../components/RelatedProduct.jsx";
 import "../style/Pro.css";
+import { useTranslation } from 'react-i18next';
 
 const Product = () => {
     const { productId } = useParams();
@@ -13,6 +14,7 @@ const Product = () => {
     const [size, setSize] = useState('');
     const [price, setPrice] = useState(0);
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     const fetchProductData = async () => {
         try {
@@ -101,7 +103,7 @@ const Product = () => {
                     </div>
                     <p className='product-price'>{currency}{price}</p>
                     <div className='product-size-selection'>
-                        <p>Select Size</p>
+                        <p>{t('selectSize')}</p>
                         <div className='product-size-buttons'>
                             {productData.chiTietList && productData.chiTietList.map((item, index) => (
                                 <button
@@ -114,19 +116,19 @@ const Product = () => {
                             ))}
                         </div>
                     </div>
-                    <button onClick={handleAddToCart} className='add-to-cart-btn'>ADD TO CART</button>
+                    <button onClick={handleAddToCart} className='add-to-cart-btn'>{t('addToCart')}</button>
                     <hr className='product-info-divider' />
                     <div className='product-guarantee-info'>
-                        <p>100% Original product</p>
-                        <p>Cash on delivery is available on this product</p>
-                        <p>Easy return and exchange policy within 7 days</p>
+                        <p>{t('originalProduct')}</p>
+                        <p>{t('codAvailable')}</p>
+                        <p>{t('easyReturn')}</p>
                     </div>
                 </div>
             </div>
             <div className='description-reviews-section'>
                 <div className='description-reviews-tabs'>
-                    <b>Description</b>
-                    <p>Reviews(22)</p>
+                    <b>{t('description')}</b>
+
                 </div>
                 <div className='description-content'>
                     <p>{productData.moTa}</p>

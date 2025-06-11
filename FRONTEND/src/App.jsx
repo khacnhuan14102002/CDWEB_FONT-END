@@ -1,5 +1,7 @@
 import React from 'react';
 import './index.css';
+import './i18n';
+
 import { Routes, Route } from "react-router-dom";
 import Home from './pages/Home';
 import Collection from "./pages/Collection.jsx";

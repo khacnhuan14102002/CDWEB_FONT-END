@@ -1,40 +1,44 @@
 import React from 'react';
 import { assets } from "../assets/assets.js";
 import '../style/Foot.css';
-import logo from '../assets/anh/logo_1.png'
+import logo from '../assets/anh/logo_1.png';
+import { useTranslation } from 'react-i18next';
+
 const Footer = () => {
+    const { t } = useTranslation();
+
     return (
         <div className="footer-wrapper">
             <div className="footer-grid">
                 <div className="footer-logo-section">
-                    <img src={logo} className="footer-logo" alt="" />
+                    <img src={logo} className="footer-logo" alt="Logo" />
                     <p className="footer-description">
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the...
+                        {t('footer.description')}
                     </p>
                 </div>
 
                 <div className="footer-links">
-                    <p className="footer-title">COMPANY</p>
+                    <p className="footer-title">{t('footer.company')}</p>
                     <ul className="footer-list">
-                        <li>Home</li>
-                        <li>About us</li>
-                        <li>Delivery</li>
-                        <li>Privacy policy</li>
+                        <li>{t('footer.home')}</li>
+                        <li>{t('footer.about')}</li>
+                        <li>{t('footer.delivery')}</li>
+                        <li>{t('footer.privacy')}</li>
                     </ul>
                 </div>
 
                 <div className="footer-contact">
-                    <p className="footer-title">GET IN TOUCH</p>
+                    <p className="footer-title">{t('footer.getInTouch')}</p>
                     <ul className="footer-list">
-                        <li>+1-212-456-7890</li>
-                        <li>contact@gmail.com</li>
+                        <li>{t('footer.phone')}</li>
+                        <li>{t('footer.email')}</li>
                     </ul>
                 </div>
             </div>
 
             <div className="footer-bottom">
                 <hr />
-                <p className="footer-copy">Copyright 2025@ petshop.com - All Right Reserved.</p>
+                <p className="footer-copy">{t('footer.copyright')}</p>
             </div>
         </div>
     );

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+import { useTranslation } from 'react-i18next';
 import '../style/Lastest.css';
 import '../style/Title.css';
 import Title from "./Title.jsx";
@@ -7,6 +7,7 @@ import ProductItem from "./ProductItem.jsx";
 
 const BestSeller = () => {
     const [bestSeller, setBestSeller] = useState([]);
+    const { t } = useTranslation();
 
     useEffect(() => {
         fetch("http://localhost:8080/api/chitietdonhang/bestsellers")
@@ -22,7 +23,7 @@ const BestSeller = () => {
     return (
         <div className='my-10'>
             <div className='text-center text-3xl py-8'>
-                <Title text1={'BEST'} text2={' SELLER'} />
+                <Title text1={t('best')} text2={` ${t('seller')}`} />
             </div>
             <div className='grid'>
                 {

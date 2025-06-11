@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Title from "../components/Title.jsx";
 import '../style/Order.css';
+import { useTranslation } from 'react-i18next';
 
 const Orders = () => {
     const [user, setUser] = useState(null);
@@ -9,6 +10,7 @@ const Orders = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const ordersPerPage = 5;
     const currency = '$';
+    const { t } = useTranslation();
 
     useEffect(() => {
         const storedUser = localStorage.getItem("user");
@@ -46,20 +48,21 @@ const Orders = () => {
     return (
         <div className='orders-container'>
             <div className='orders-title-wrapper'>
-                <Title text1={'MY'} text2={' ORDERS'} />
+                <Title text1={t('order.my1')} text2={t('order.my2')} />
             </div>
 
             <div>
                 {orders.length === 0 ? (
-                    <p>No orders found.</p>
+                    <p>{t('order.noOrders')}</p>
+
                 ) : (
                     currentOrders.map((order, index) => (
                         <div key={order.maDH || index} className='order-item'>
                             <div className='order-summary' onClick={() => toggleExpand(index)}>
-                                <p><strong>Order #{order.maDH}</strong> - {order.ngayDat}</p>
-                                <p>Status: {order.trangThai}</p>
-                                <p>Total: {currency}{order.tongTien}</p>
-                                <p className='order-date'>Payment: {order.phuongThucThanhToan}</p>
+                                <p><strong>{t('order.order')} #{order.maDH}</strong> - {order.ngayDat}</p>
+                                <p>{t('order.status')}: {order.trangThai}</p>
+                                <p>{t('order.total')}: {currency}{order.tongTien}</p>
+                                <p className='order-date'>{t('order.payment')}: {order.phuongThucThanhToan}</p>
                             </div>
 
                             {expandedOrderIndex === index && (
@@ -75,8 +78,8 @@ const Orders = () => {
 
                                                 <p className='order-name'>{item.sanPham?.tenSP}</p>
                                                 <p className='order-price'>{currency}{item.donGia}</p>
-                                                <p>Quantity: {item.soLuong}</p>
-                                                <p>Size: {item.kichThuoc}</p>
+                                                <p>{t('order.quantity')}: {item.soLuong}</p>
+                                                <p>{t('order.size')}: {item.kichThuoc}</p>
                                             </div>
                                         </div>
                                     ))}

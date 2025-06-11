@@ -3,6 +3,7 @@ import { assets } from "../assets/assets.js";
 import '../style/Collec.css';
 import Title from "../components/Title.jsx";
 import ProductItem from "../components/ProductItem.jsx";
+import { useTranslation } from 'react-i18next';
 
 const Collection = () => {
     const [showFilter, setShowFilter] = useState(false);
@@ -17,6 +18,7 @@ const Collection = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [productsPerPage] = useState(18);
     const [sortOption, setSortOption] = useState('relevant');
+    const { t } = useTranslation();
 
     // Fetch danh mục
     useEffect(() => {
@@ -107,7 +109,7 @@ const Collection = () => {
         <div className="collection-container">
             <div className="filter-wrapper">
                 <p onClick={() => setShowFilter(!showFilter)} className="filter-header">
-                    FILTERS
+                    {t('collection_1.filters')}
                     <img
                         className={`filter-icon ${showFilter ? 'rotate' : ''}`}
                         src={assets.dropdown_icon}
@@ -115,9 +117,10 @@ const Collection = () => {
                     />
                 </p>
 
+
                 {/* Filter danh mục */}
                 <div className={`filter-box ${showFilter ? '' : 'hidden-mobile'}`}>
-                    <p className="filter-title">DANH MỤC</p>
+                    <p className="filter-title">{t('collection_1.category')}</p>
                     <div className="filter-options">
                         <label>
                             <input
@@ -146,7 +149,7 @@ const Collection = () => {
 
                 {/* Filter loại sản phẩm */}
                 <div className={`filter-box ${showFilter ? '' : 'hidden-mobile'} margin-top`}>
-                    <p className="filter-title">LOẠI SẢN PHẨM</p>
+                    <p className="filter-title">{t('collection_1.productType')}</p>
                     <div className="filter-options">
                         {types.map((type) => (
                             <label key={type.maType}>
@@ -165,15 +168,15 @@ const Collection = () => {
 
             <div className="flex-1">
                 <div className="flex justify-between text-base sm:text-2xl mb-4">
-                    <Title text1={'ALL'} text2={' COLLECTIONS'} />
+                    <Title text1={t('collection_1.all1')} text2={t( 'collection_1.all2')} />
                     <select
                         className='border-2 border-gray-300 text-sm px-2'
                         value={sortOption}
                         onChange={(e) => setSortOption(e.target.value)}
                     >
-                        <option value="relevant">Sort by: Relevant</option>
-                        <option value="low-high">Sort by: Low to High</option>
-                        <option value="high-low">Sort by: High to Low</option>
+                        <option value="relevant">{t('collection_1.sortRelevant')}</option>
+                        <option value="low-high">{t('collection_1.sortLowHigh')}</option>
+                        <option value="high-low">{t('collection_1.sortHighLow')}</option>
                     </select>
 
                 </div>

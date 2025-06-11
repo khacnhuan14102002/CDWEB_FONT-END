@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import Title from "./Title.jsx";
 import '../style/Lastest.css';
 import ProductItem from "./ProductItem.jsx";
+import { useTranslation } from 'react-i18next';
 
 const LatestCollection = () => {
     const [latestProducts, setLatestProducts] = useState([]);
+    const { t } = useTranslation();
 
     useEffect(() => {
         fetch("http://localhost:8080/api/sanpham/oldest")
@@ -20,7 +22,7 @@ const LatestCollection = () => {
     return (
         <div className="latest-collection">
             <div className="title-wrapper">
-                <Title text1={'LATEST'} text2={' COLLECTIONS'} />
+                <Title text1={t('latest') } />
             </div>
 
             <div className='grid'>
@@ -37,12 +39,11 @@ const LatestCollection = () => {
                                     : 0
                             }
                         />
-
                     ))
                 }
             </div>
         </div>
     );
-}
+};
 
 export default LatestCollection;
