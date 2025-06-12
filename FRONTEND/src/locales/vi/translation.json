@@ -171,6 +171,29 @@
     "phone": "Số điện thoại",
     "cashOnDelivery": "THANH TOÁN KHI NHẬN HÀNG",
     "checkout": "ĐẶT HÀNG"
-  }
-
+  },
+  "login": {
+    "email_required": "Email là bắt buộc",
+    "password_required": "Mật khẩu là bắt buộc",
+    "name_required": "Tên là bắt buộc",
+    "phone_required": "Số điện thoại là bắt buộc",
+    "confirm_password_required": "Xác nhận mật khẩu là bắt buộc",
+    "password_mismatch": "Mật khẩu xác nhận không khớp",
+    "failed_login": "Đăng nhập thất bại",
+    "server_error": "Lỗi máy chủ. Vui lòng thử lại sau.",
+    "email_check_error": "Không thể kiểm tra email. Vui lòng thử lại.",
+    "success_register": "Đăng ký thành công!",
+    "title_login": "Đăng nhập",
+    "title_signup": "Đăng ký",
+    "name": "Họ và tên",
+    "email": "Email",
+    "phone": "Số điện thoại",
+    "password": "Mật khẩu",
+    "confirmPassword": "Xác nhận mật khẩu",
+    "forgot_password": "Quên mật khẩu?",
+    "create_account": "Tạo tài khoản",
+    "login_here": "Đăng nhập tại đây"
+  },
+  "email.exists": "Email đã tồn tại!",
+  "email.valid": "Email hợp lệ."
 }
