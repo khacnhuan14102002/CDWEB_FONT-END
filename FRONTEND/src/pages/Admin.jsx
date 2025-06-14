@@ -321,9 +321,20 @@ const Admin = () => {
     });
 
     // --- Phần quản lý người dùng giữ nguyên ---
+    // const handleEditUser = (index) => {
+    //     setEditingUser({ ...userList[index], index });
+    // };
+    // const handleEditUser = (index) => {
+    //     const user = filteredUsers[index];
+    //     setEditingUser({ ...user });
+    // };
     const handleEditUser = (index) => {
-        setEditingUser({ ...userList[index], index });
+        const user = filteredUsers[index];
+        setEditingUser({ ...user, index });
     };
+
+
+
     const handleDeleteUser = async (index) => {
         // Get the actual user object to access its maKH (ID)
         const userToDelete = filteredUsers[index];
@@ -357,17 +368,88 @@ const Admin = () => {
         setEditingUser(prev => ({ ...prev, [name]: value }));
     };
 
+    const handleSaveUser = async () => {
+        if (!editingUser.hoTen || !editingUser.email || !editingUser.soDienThoai || !editingUser.matKhau) {
+            alert("Vui lòng nhập đầy đủ thông tin bắt buộc (họ tên, email, sđt, mật khẩu).");
+            return;
+        }
+
+        const payload = {
+            // maKH: editingUser.maKH || null,
+            maKH: typeof editingUser.maKH === 'object' ? editingUser.maKH.maKH : editingUser.maKH || null,
+            hoTen: editingUser.hoTen,
+            email: editingUser.email,
+            soDienThoai: editingUser.soDienThoai,
+            // diaChi: editingUser.diaChi || '',
+            matKhau: editingUser.matKhau,
+            ngayDangKy: editingUser.ngayDangKy || new Date().toISOString().slice(0, 10),
+            role: editingUser.role || 'user'
+        };
+
+        try {
+            let response;
+            if (editingUser.index != null && editingUser.maKH) {
+                // Sửa người dùng
+                response = await fetch(`http://localhost:8080/api/khachhang/${editingUser.maKH}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+            } else {
+                // Thêm mới người dùng
+                response = await fetch('http://localhost:8080/api/khachhang', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+            }
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const updatedData = await fetch('http://localhost:8080/api/khachhang');
+            const users = await updatedData.json();
+            setUsers(users);
+            setEditingUser(null);
+            alert("Lưu người dùng thành công!");
+        } catch (error) {
+            console.error("Lỗi khi lưu người dùng:", error);
+            alert("Không thể lưu người dùng. Vui lòng thử lại sau.");
+        }
+        // xử lý lỗi khi api trả về  lỗi valication
+        if (!response.ok) {
+            const errorData = await response.json();
+            alert("Lỗi: " + (Array.isArray(errorData) ? errorData.join('\n') : errorData));
+            return;
+        }
+        console.log("Payload gửi lên server:", payload);
+
+    };
+
 
 
     const handleCancelUser = () => {
         setEditingUser(null);
     };
 
+    // const filteredUsers = users.filter(user => {
+    //     const hoTen = user.HoTen ? user.HoTen.toLowerCase() : ''; // Nếu HoTen là null/undefined, coi như chuỗi rỗng
+    //     const email = user.Email ? user.Email.toLowerCase() : ''; // Nếu Email là null/undefined, coi như chuỗi rỗng
+    //     const soDienThoai = user.SoDienThoai ? user.SoDienThoai.toLowerCase() : ''; // Nếu SoDienThoai là null/undefined, coi như chuỗi rỗng
+    //
+    //     const searchTermLower = userSearchTerm.toLowerCase();
+    //
+    //     return (
+    //         hoTen.includes(searchTermLower) ||
+    //         email.includes(searchTermLower) ||
+    //         soDienThoai.includes(searchTermLower)
+    //     );
+    // });
     const filteredUsers = users.filter(user => {
-        const hoTen = user.HoTen ? user.HoTen.toLowerCase() : ''; // Nếu HoTen là null/undefined, coi như chuỗi rỗng
-        const email = user.Email ? user.Email.toLowerCase() : ''; // Nếu Email là null/undefined, coi như chuỗi rỗng
-        const soDienThoai = user.SoDienThoai ? user.SoDienThoai.toLowerCase() : ''; // Nếu SoDienThoai là null/undefined, coi như chuỗi rỗng
-
+        const hoTen = user.hoTen?.toLowerCase() || '';
+        const email = user.email?.toLowerCase() || '';
+        const soDienThoai = user.soDienThoai?.toLowerCase() || '';
         const searchTermLower = userSearchTerm.toLowerCase();
 
         return (
@@ -377,28 +459,56 @@ const Admin = () => {
         );
     });
 
+
     const handleLogout = () => {
         navigate('/');
     };
+
+
+    // useEffect(() => {
+    //     const fetchUsers = async () => {
+    //         try {
+    //             const response = await fetch('http://localhost:8080/api/khachhang'); // Endpoint GET ALL
+    //             if (!response.ok) {
+    //                 throw new Error(`HTTP error! status: ${response.status}`);
+    //             }
+    //             const data = await response.json();
+    //             setUsers(data); // Cập nhật state với dữ liệu người dùng
+    //         } catch (error) {
+    //             console.error("Could not fetch users:", error);
+    //             setError("Không thể tải danh sách người dùng. Vui lòng thử lại sau.");
+    //         } finally {
+    //             setLoading(false); // Đặt trạng thái tải thành false dù thành công hay thất bại
+    //         }
+    //     };
+    //
+    //     fetchUsers();
+    // }, [])
+
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await fetch('http://localhost:8080/api/khachhang'); // Endpoint GET ALL
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
+                setLoading(true);
+                const url = userSearchTerm.trim()
+                    ? `http://localhost:8080/api/khachhang/search?term=${encodeURIComponent(userSearchTerm)}`
+                    : 'http://localhost:8080/api/khachhang';
+
+                const response = await fetch(url);
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                 const data = await response.json();
-                setUsers(data); // Cập nhật state với dữ liệu người dùng
+                setUsers(data);
             } catch (error) {
-                console.error("Could not fetch users:", error);
+                console.error("Không thể tải danh sách người dùng:", error);
                 setError("Không thể tải danh sách người dùng. Vui lòng thử lại sau.");
             } finally {
-                setLoading(false); // Đặt trạng thái tải thành false dù thành công hay thất bại
+                setLoading(false);
             }
         };
 
-        fetchUsers();
-    }, [])
+        const timeoutId = setTimeout(fetchUsers, 400); // debounce 400ms
+        return () => clearTimeout(timeoutId);
+    }, [userSearchTerm]);
+
     const renderContent = () => {
         switch (selectedTab) {
             case 'users':
@@ -415,7 +525,18 @@ const Admin = () => {
                                 className={styles['search-input']}
                             />
                             <button
-                                onClick={() => setEditingUser({ NgayDangKy: new Date().toISOString().slice(0, 10) })}
+                                // onClick={() => setEditingUser({ NgayDangKy: new Date().toISOString().slice(0, 10) })}
+                                onClick={() => setEditingUser({
+                                    index: null, // null nghĩa là thêm mới, không phải sửa
+                                    maKH: '', // mặc định để trống (nếu backend tự sinh thì readonly)
+                                    hoTen: '',
+                                    email: '',
+                                    soDienThoai: '',
+                                    diaChi: '',
+                                    matKhau: '',
+                                    ngayDangKy: new Date().toISOString().slice(0, 10)
+                                })}
+
                                 className={styles['add-user-button']}
                             >
                                 + Thêm người dùng
@@ -439,22 +560,19 @@ const Admin = () => {
                                 </thead>
                                 <tbody>
                                 {filteredUsers.map((u, i) => (
-                                    <tr key={u.maKH || i}> {}
-                                        <td>{u.maKH}</td> {}
-                                        <td>{u.hoTen}</td> {}
-                                        <td>{u.email}</td> {}
-                                        <td>{u.soDienThoai}</td> {}
+                                    <tr key={u.maKH || i}>
+                                        <td>{u.maKH}</td>
+                                        <td>{u.hoTen}</td>
+                                        <td>{u.email}</td>
+                                        <td>{u.soDienThoai}</td>
                                         <td>{u.ngayDangKy}</td>
                                         <td className={styles['action-buttons']}>
-                                            <button
-                                                className={styles['delete-button']}
-                                                onClick={() => handleDeleteUser(i)}
-                                            >
-                                                Xóa
-                                            </button>
+                                            <button className={styles['delete-button']} onClick={() => handleDeleteUser(i)}>Xóa</button>
+                                            <button className={styles['edit-button']} onClick={() => handleEditUser(i)}>Sửa</button>
                                         </td>
                                     </tr>
                                 ))}
+
                                 </tbody>
                             </table>
                         )}
