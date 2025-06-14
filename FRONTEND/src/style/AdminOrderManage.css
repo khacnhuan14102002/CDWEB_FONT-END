@@ -1,0 +1,119 @@
+/*.container {*/
+/*    padding: 20px;*/
+/*}*/
+
+/*.title {*/
+/*    font-size: 24px;*/
+/*    font-weight: bold;*/
+/*    margin-bottom: 20px;*/
+/*}*/
+
+/*.search-bar {*/
+/*    margin-bottom: 10px;*/
+/*}*/
+
+/*.table, .detail-table {*/
+/*    width: 100%;*/
+/*    border-collapse: collapse;*/
+/*    margin-top: 15px;*/
+/*}*/
+
+/*.table th, .table td,*/
+/*.detail-table th, .detail-table td {*/
+/*    border: 1px solid #ccc;*/
+/*    padding: 10px;*/
+/*    text-align: center;*/
+/*}*/
+
+/*.modal {*/
+/*    position: fixed;*/
+/*    top: 0; left: 0;*/
+/*    width: 100%; height: 100%;*/
+/*    background: rgba(0, 0, 0, 0.5);*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    z-index: 999;*/
+/*}*/
+
+/*.modal-content {*/
+/*    background: white;*/
+/*    padding: 20px;*/
+/*    width: 80%;*/
+/*    max-height: 90%;*/
+/*    overflow-y: auto;*/
+/*    border-radius: 10px;*/
+/*}*/
+
+/*.close-btn {*/
+/*    margin-top: 20px;*/
+/*    background-color: #e74c3c;*/
+/*    color: white;*/
+/*    padding: 8px 16px;*/
+/*    border: none;*/
+/*    border-radius: 4px;*/
+/*    cursor: pointer;*/
+/*}*/
+/*.close-btn:hover {*/
+/*    background-color: #c0392b;*/
+/*}*/
+.container {
+    padding: 20px;
+}
+.title {
+    font-size: 22px;
+    margin-bottom: 16px;
+}
+.table, .detail-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.table th, .table td, .detail-table th, .detail-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+}
+.viewBtn, .edit-status {
+    background-color: #3498db;
+    color: white;
+    padding: 5px 8px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.viewBtn:hover, .edit-status:hover {
+    background-color: #2980b9;
+}
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modal-content {
+    background: white;
+    padding: 20px;
+    width: 80%;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 8px;
+}
+.search-input {
+    padding: 8px;
+    width: 300px;
+    border: 1px solid #ccc;
+    margin-bottom: 12px;
+}
+.error {
+    color: red;
+    margin-top: 10px;
+}
+.table th, .table td {
+    font-size: 14px;
+    padding: 6px;
+}
