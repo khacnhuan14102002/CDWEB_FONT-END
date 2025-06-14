@@ -7,7 +7,6 @@ import {useNavigate} from "react-router-dom";
 export const ShopContext = createContext();
 
 const ShopContextProvider = (props) => {
-    const currency = '$';
     const delivery_fee = 10;
     const [search,setSearch] =useState('');
     const [showSearch, setShowSearch] = useState(true)
@@ -76,7 +75,6 @@ const ShopContextProvider = (props) => {
     }, [cartItem]);
     const value = {
         products,         // <-- Thêm dòng này
-        currency,
         delivery_fee,
         search,
         setSearch,

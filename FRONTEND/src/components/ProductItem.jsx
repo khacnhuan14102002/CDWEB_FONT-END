@@ -5,7 +5,7 @@ import { ShopContext } from "../context/ShopContext.jsx";
 import { Link } from "react-router-dom";
 
 const ProductItem = ({ id, image, name, price }) => {
-    const { currency } = useContext(ShopContext);
+    // const { currency } = useContext(ShopContext);
     const { t } = useTranslation();
 
     return (
@@ -14,7 +14,7 @@ const ProductItem = ({ id, image, name, price }) => {
                 <img className='product-image' src={image} alt={name} />
             </div>
             <p className='product-name'>{name}</p>
-            <p className='product-price'>{currency}{price}</p>
+            <p className='product-price'>{price}</p>
             {/* Ví dụ mở rộng: <span className='badge'>{t('product.new')}</span> */}
         </Link>
     );
