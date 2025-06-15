@@ -1,22 +1,26 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { ShopContext } from "../context/ShopContext.jsx";
+import React, { useEffect, useState } from 'react';
 import Title from "./Title.jsx";
 import ProductItem from "./ProductItem.jsx";
 import { useTranslation } from 'react-i18next';
 
-const RelatedProduct = ({ category, subCategory }) => {
-    const { products } = useContext(ShopContext);
+const RelatedProduct = ({ categoryId, typeId, productId }) => {
     const [related, setRelated] = useState([]);
     const { t } = useTranslation();
 
     useEffect(() => {
-        if (products.length > 0) {
-            let filtered = products
-                .filter(item => item.category === category)
-                .filter(item => item.subCategory === subCategory);
-            setRelated(filtered.slice(0, 5));
-        }
-    }, [products, category, subCategory]);
+        const fetchRelatedProducts = async () => {
+            try {
+                const response = await fetch(`http://localhost:8080/api/sanpham/related?danhmuc=${categoryId}&type=${typeId}&excludeId=${productId}`);
+                if (!response.ok) throw new Error("Failed to fetch related products");
+                const data = await response.json();
+                setRelated(data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        fetchRelatedProducts();
+    }, [categoryId, typeId, productId]);
 
     return (
         <div className='my-24'>
@@ -27,10 +31,10 @@ const RelatedProduct = ({ category, subCategory }) => {
                 {related.map((item, index) => (
                     <ProductItem
                         key={index}
-                        id={item._id}
-                        name={item.name}
-                        price={item.price}
-                        image={item.image}
+                        id={item.maSP}
+                        name={item.tenSP}
+                        price={item.chiTietList[0]?.gia || 0}
+                        image={item.hinhAnh}
                     />
                 ))}
             </div>

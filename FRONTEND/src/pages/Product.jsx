@@ -134,7 +134,12 @@ const Product = () => {
                     <p>{productData.moTa}</p>
                 </div>
             </div>
-            <RelatedProduct category={productData.category} subCategory={productData.subCategory} />
+            <RelatedProduct
+                categoryId={productData.maDanhMuc}
+                typeId={productData.maType}
+                productId={productData.maSP}
+            />
+
         </div>
     );
 };

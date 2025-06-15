@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import '../style/Login.css';
 
@@ -13,7 +12,6 @@ const Login = () => {
         name: '',
     });
     const [errors, setErrors] = useState({});
-    const navigate = useNavigate();
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -32,7 +30,6 @@ const Login = () => {
         setFormData((prev) => {
             const updated = { ...prev, [name]: value };
 
-            // Optional: Live confirm password check
             if ((name === 'confirmPassword' || name === 'password') && mode === 'Sign Up') {
                 if (updated.confirmPassword && updated.password !== updated.confirmPassword) {
                     setErrors((prevErrors) => ({
@@ -92,7 +89,7 @@ const Login = () => {
                 if (res.ok) {
                     const user = await res.json();
                     localStorage.setItem('user', JSON.stringify(user));
-                    navigate('/');
+                    window.location.href = '/'; // Chuyển hướng sang trang chính
                 } else {
                     const msg = await res.text();
                     setErrors({ general: msg || t('login.failed_login') });
@@ -115,7 +112,7 @@ const Login = () => {
                 const msg = await res.text();
                 if (res.ok) {
                     alert(t('login.success_register'));
-                    setMode('Login');
+                    window.location.href = '/'; // Chuyển hướng sang trang chính sau đăng ký
                 } else {
                     setErrors({ email: msg });
                 }
