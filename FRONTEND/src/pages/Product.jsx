@@ -13,8 +13,12 @@ const Product = () => {
     const [image, setImage] = useState('');
     const [size, setSize] = useState('');
     const [price, setPrice] = useState(0);
+    const [activeTab, setActiveTab] = useState('description');
     const navigate = useNavigate();
     const { t } = useTranslation();
+
+    const [newQuestion, setNewQuestion] = useState('');
+    const [allQuestions, setAllQuestions] = useState([]);
 
     const fetchProductData = async () => {
         try {
@@ -24,8 +28,9 @@ const Product = () => {
             setProductData(data);
             setImage(data.hinhAnh);
 
-            // Chọn kích cỡ có giá thấp nhất mặc định
-            const minPriceDetail = data.chiTietList.reduce((prev, current) => (prev.gia < current.gia) ? prev : current);
+            const minPriceDetail = data.chiTietList.reduce((prev, current) =>
+                (prev.gia < current.gia) ? prev : current
+            );
             setSize(minPriceDetail.kichCo);
             setPrice(minPriceDetail.gia);
         } catch (error) {
@@ -33,11 +38,22 @@ const Product = () => {
         }
     };
 
+    const fetchQuestions = async () => {
+        try {
+            const response = await fetch(`http://localhost:8080/api/cauhoi/sanpham/${productId}`);
+            if (!response.ok) throw new Error('Failed to fetch questions');
+            const data = await response.json();
+            setAllQuestions(data);
+        } catch (error) {
+            console.error("Error fetching questions:", error);
+        }
+    };
+
     useEffect(() => {
         fetchProductData();
+        fetchQuestions();
     }, [productId]);
 
-    // Cập nhật giá khi chọn size
     const handleSizeSelection = (selectedSize) => {
         setSize(selectedSize);
         const selectedDetail = productData.chiTietList.find(item => item.kichCo === selectedSize);
@@ -46,7 +62,6 @@ const Product = () => {
         }
     };
 
-    // Xử lý thêm giỏ hàng
     const handleAddToCart = async () => {
         const user = JSON.parse(localStorage.getItem('user'));
         if (!user) {
@@ -59,14 +74,14 @@ const Product = () => {
         }
 
         const cartItem = {
-            userId: user.maKH,          // user id lấy từ localStorage
+            userId: user.maKH,
             maSP: productData.maSP,
             kichCo: size,
             soluong: 1,
             gia: price,
-            anh: image,              // Add image URL here
+            anh: image,
         };
-        console.log('Cart Item:', cartItem);
+
         try {
             const res = await fetch('http://localhost:8080/api/cart/add', {
                 method: 'POST',
@@ -83,6 +98,42 @@ const Product = () => {
         }
     };
 
+    const handleSubmitQuestion = async () => {
+        if (!newQuestion.trim()) {
+            alert('Vui lòng nhập câu hỏi.');
+            return;
+        }
+
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (!user) {
+            navigate('/login');
+            return;
+        }
+
+        const payload = {
+            maSP: productData.maSP,
+            maKH: user.maKH,
+            noiDung: newQuestion,
+            traLoi: null
+        };
+
+        try {
+            const res = await fetch('http://localhost:8080/api/cauhoi/them', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
+            });
+            if (!res.ok) throw new Error('Failed to submit question');
+            await res.json();
+            alert('Câu hỏi đã được gửi!');
+            setNewQuestion('');
+            fetchQuestions();
+        } catch (err) {
+            console.error(err);
+            alert('Không thể gửi câu hỏi');
+        }
+    };
+
     if (!productData) return <div>Loading...</div>;
 
     return (
@@ -93,31 +144,38 @@ const Product = () => {
                         <img src={image} alt={productData.tenSP} />
                     </div>
                 </div>
+
                 <div className='product-info-section'>
                     <h1>{productData.tenSP}</h1>
                     <div className='product-rating'>
                         {[...Array(5)].map((_, index) => (
-                            <img src={assets.star_icon} alt="Star rating" key={index} />
+                            <img src={assets.star_icon} alt="Star" key={index} />
                         ))}
                         <p>(122)</p>
                     </div>
                     <p className='product-price'>{currency}{price}</p>
+
                     <div className='product-size-selection'>
                         <p>{t('selectSize')}</p>
                         <div className='product-size-buttons'>
-                            {productData.chiTietList && productData.chiTietList.map((item, index) => (
+                            {productData.chiTietList?.map((item, index) => (
                                 <button
                                     onClick={() => handleSizeSelection(item.kichCo)}
                                     className={item.kichCo === size ? 'selected' : ''}
                                     key={index}
                                 >
-                                    {item.kichCo} ({item.soLuong} available)
+                                    {item.kichCo} ({item.soLuong} còn)
                                 </button>
                             ))}
                         </div>
                     </div>
-                    <button onClick={handleAddToCart} className='add-to-cart-btn'>{t('addToCart')}</button>
+
+                    <button onClick={handleAddToCart} className='add-to-cart-btn'>
+                        {t('addToCart')}
+                    </button>
+
                     <hr className='product-info-divider' />
+
                     <div className='product-guarantee-info'>
                         <p>{t('originalProduct')}</p>
                         <p>{t('codAvailable')}</p>
@@ -125,21 +183,60 @@ const Product = () => {
                     </div>
                 </div>
             </div>
+
             <div className='description-reviews-section'>
                 <div className='description-reviews-tabs'>
-                    <b>{t('description')}</b>
-
+                    <button
+                        className={activeTab === 'description' ? 'active-tab' : ''}
+                        onClick={() => setActiveTab('description')}
+                    >
+                        {t('description')}
+                    </button>
+                    <button
+                        className={activeTab === 'qa' ? 'active-tab' : ''}
+                        onClick={() => setActiveTab('qa')}
+                    >
+                        {t('productQnA') || 'Hỏi đáp'}
+                    </button>
                 </div>
+
                 <div className='description-content'>
-                    <p>{productData.moTa}</p>
+                    {activeTab === 'description' ? (
+                        <p>{productData.moTa}</p>
+                    ) : (
+                        <div className="qa-section">
+                            {allQuestions.length === 0 ? (
+                                <p>{t('noQuestions') || 'Chưa có câu hỏi nào'}</p>
+                            ) : (
+                                allQuestions.map((q, index) => (
+                                    <div className='qa-item' key={index}>
+                                        <p><strong>Q:</strong> {q.noiDung}</p>
+                                        <p><strong>A:</strong> {q.traLoi || 'Chưa có câu trả lời'}</p>
+                                    </div>
+                                ))
+                            )}
+
+                            <div className='qa-form'>
+                                <textarea
+                                    value={newQuestion}
+                                    onChange={(e) => setNewQuestion(e.target.value)}
+                                    placeholder="Nhập câu hỏi của bạn..."
+                                    rows={3}
+                                />
+                                <button onClick={handleSubmitQuestion}>
+                                    {t('submitQuestion') || 'Gửi câu hỏi'}
+                                </button>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
+
             <RelatedProduct
                 categoryId={productData.maDanhMuc}
                 typeId={productData.maType}
                 productId={productData.maSP}
             />
-
         </div>
     );
 };

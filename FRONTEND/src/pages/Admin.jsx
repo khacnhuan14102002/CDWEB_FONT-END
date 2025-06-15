@@ -1,10 +1,11 @@
-import { Users, Package, ShoppingCart, LogOut } from 'lucide-react';
+import {Users, Package, ShoppingCart, LogOut, HelpCircle} from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../assets/anh/logo_2.png';
 import styles from '../style/Admin/Admin.module.css';
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import AdminOrderManager from "./AdminOrderManager.jsx";
+import AdminAsk from "./AdminAsk.jsx";
 
 const Admin = () => {
     const [selectedTab, setSelectedTab] = useState('products');
@@ -902,6 +903,9 @@ const Admin = () => {
                 return <AdminOrderManager/>;
             default:
                 return null;
+            case 'ask':
+                return <AdminAsk/>;
+
         }
     };
 
@@ -912,6 +916,7 @@ const Admin = () => {
                     <div className={styles['sidebar-logo']}>
                         <img src={logo} alt="Shop Logo" className={styles['logo-image']} />
                     </div>
+
                     <div
                         onClick={() => setSelectedTab('users')}
                         className={`${styles['sidebar-item']} ${selectedTab === 'users' ? styles['selected-users'] : ''}`}
@@ -928,13 +933,23 @@ const Admin = () => {
                         <span className={styles['sidebar-text']}>Sản phẩm</span>
                     </div>
 
-                        <div
-                            onClick={() => setSelectedTab('orders')}
-                            className={`${styles['sidebar-item']} ${selectedTab === 'orders' ? styles['selected-orders'] : ''}`}
-                        >
-                            <ShoppingCart className={styles['sidebar-icon']} style={{ color: '#9b59b6' }} />
-                            <span className={styles['sidebar-text']}>Đơn hàng</span>
-                        </div>
+                    <div
+                        onClick={() => setSelectedTab('orders')}
+                        className={`${styles['sidebar-item']} ${selectedTab === 'orders' ? styles['selected-orders'] : ''}`}
+                    >
+                        <ShoppingCart className={styles['sidebar-icon']} style={{ color: '#9b59b6' }} />
+                        <span className={styles['sidebar-text']}>Đơn hàng</span>
+                    </div>
+
+                    {/* ----- NEW ASK TAB ----- */}
+                    <div
+                        onClick={() => setSelectedTab('ask')}
+                        className={`${styles['sidebar-item']} ${selectedTab === 'ask' ? styles['selected-ask'] : ''}`}
+                    >
+                        <HelpCircle className={styles['sidebar-icon']} style={{ color: '#f39c12' }} />
+                        <span className={styles['sidebar-text']}>Hỏi đáp</span>
+                    </div>
+                    {/* ------------------------ */}
 
                     <div onClick={handleOut} className={styles['sidebar-item']}>
                         <LogOut className={styles['sidebar-icon']} style={{ color: '#e74c3c' }} />
@@ -948,6 +963,7 @@ const Admin = () => {
             </div>
         </div>
     );
+
 };
 
 export default Admin;
